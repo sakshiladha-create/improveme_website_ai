@@ -502,31 +502,226 @@ export const blogPosts = [
     slug: "career-guidance-in-dubai",
     title: "Career Guidance in Dubai",
     date: "November 8, 2024",
+    author: "Lina Harris",
+    authorBio: "Education consultant with a focus on Dubai admissions, university planning and scholarship pathways.",
+    category: "Guidance",
+    readingTime: "5 min read",
+    excerpt:
+      "How Dubai students can connect ambitions with practical career support, university shortlists, and long-term planning.",
+    image:
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1300&q=80",
+    tags: ["Admissions", "University", "Careers"],
+    content: [
+      {
+        type: "paragraph",
+        text: "Dubai families need clear pathways from strong school performance to real-world career options. This guide outlines the practical steps that make career planning feel achievable rather than overwhelming.",
+      },
+      {
+        type: "heading",
+        text: "Start with strengths and interests",
+      },
+      {
+        type: "paragraph",
+        text: "The first step in effective guidance is understanding what a student enjoys most, what subjects motivate them, and how those preferences align with local and global study routes.",
+      },
+      {
+        type: "list",
+        items: [
+          "Build a short-list of favourite subjects and career ideas.",
+          "Match interests with realistic exam and curriculum paths.",
+          "Talk to subject specialists and career counsellors early.",
+        ],
+      },
+      {
+        type: "blockquote",
+        text: "Great academic support makes university and career planning feel like a series of manageable decisions, not a single high-pressure deadline.",
+      },
+      {
+        type: "paragraph",
+        text: "When students can connect educational milestones to long-term goals, they remain more engaged and confident across every year of school.",
+      },
+    ],
   },
   {
     slug: "british-curriculum-syllabus-explained",
     title: "British Curriculum Syllabus Explained",
     date: "December 6, 2024",
+    author: "Amira Shah",
+    authorBio: "Curriculum specialist helping students navigate the British syllabus across KS2, GCSE, IGCSE and A-Level.",
+    category: "Curriculum",
+    readingTime: "6 min read",
+    excerpt:
+      "A clear breakdown of the British curriculum from primary through secondary, with study tips for each stage and key assessment points.",
+    image:
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1300&q=80",
+    tags: ["British Curriculum", "GCSE", "A-Level"],
+    content: [
+      {
+        type: "paragraph",
+        text: "The British curriculum is layered around stages and exams. Understanding the structure helps students and parents plan study time, revision, and subject choices more confidently.",
+      },
+      {
+        type: "heading",
+        text: "Key stages at a glance",
+      },
+      {
+        type: "list",
+        items: [
+          "KS1: Foundations in reading, writing and number sense.",
+          "KS2: Building confidence in English, Maths and Science.",
+          "GCSE / IGCSE: Exam preparation across core subjects.",
+          "A-Level: Specialist study and university preparation.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Every stage is an opportunity to strengthen students’ exam technique, subject confidence, and independent learning skills. The right support meets each stage where the student is today.",
+      },
+    ],
   },
   {
     slug: "top-tips-to-manage-exam-stress",
     title: "Top Tips to Manage Exam Stress",
     date: "January 6, 2025",
+    author: "Nadia Patel",
+    authorBio: "Student wellbeing coach who helps learners keep calm, organised and effective during exam season.",
+    category: "Wellbeing",
+    readingTime: "4 min read",
+    excerpt:
+      "Simple, proven techniques for reducing stress during exams and maintaining focus when pressure is highest.",
+    image:
+      "https://images.unsplash.com/photo-1496317899792-9d7dbcd928a1?auto=format&fit=crop&w=1300&q=80",
+    tags: ["Study Skills", "Wellbeing", "Exams"],
+    content: [
+      {
+        type: "paragraph",
+        text: "Exam pressure can make even well-prepared students feel anxious. The right routine, mindset and support system helps them stay steady and productive.",
+      },
+      {
+        type: "heading",
+        text: "Build a balanced revision plan",
+      },
+      {
+        type: "list",
+        items: [
+          "Break every subject into short, focused sessions.",
+          "Schedule regular rest and movement breaks.",
+          "Review progress each week and adjust the plan as needed.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "Keeping exam preparation sustainable is more important than trying to cram. A calm, consistent plan is the best way to maintain clarity and confidence.",
+      },
+    ],
   },
   {
     slug: "screen-time-study-time",
     title: "Screen Time, Study Time",
     date: "January 20, 2025",
+    author: "Omar Malik",
+    authorBio: "Digital learning coach supporting healthy study habits for modern students.",
+    category: "Habits",
+    readingTime: "5 min read",
+    excerpt:
+      "How to balance screen-based learning with offline study routines so students stay productive and avoid burnout.",
+    image:
+      "https://images.unsplash.com/photo-1517502166878-35c93a0072bb?auto=format&fit=crop&w=1300&q=80",
+    tags: ["Digital Learning", "Productivity", "Habits"],
+    content: [
+      {
+        type: "paragraph",
+        text: "Technology is a powerful study tool, but it also brings distraction. The best learning routines use screen time purposefully and leave room for reflection offline.",
+      },
+      {
+        type: "heading",
+        text: "Create intentional study zones",
+      },
+      {
+        type: "list",
+        items: [
+          "Set a clear start and finish time for digital study.",
+          "Use apps only for learning and avoid social feeds during revision.",
+          "Balance screen-based lessons with handwritten notes and review.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "A structured routine helps students use devices as tools rather than distractions, which supports deeper learning and better exam outcomes.",
+      },
+    ],
   },
   {
     slug: "strategies-for-tackling-homework",
     title: "Strategies for Tackling Homework",
     date: "February 6, 2026",
+    author: "Sara Roberts",
+    authorBio: "Learning strategist who helps families build homework systems that improve results and reduce daily friction.",
+    category: "Study",
+    readingTime: "4 min read",
+    excerpt:
+      "Homework doesn't have to feel endless. These proven strategies help students complete work faster with more confidence.",
+    image:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1300&q=80",
+    tags: ["Homework", "Study Routine", "Skills"],
+    content: [
+      {
+        type: "paragraph",
+        text: "Consistent homework habits are one of the strongest predictors of school progress. The right system turns homework from chaos into clear gains.",
+      },
+      {
+        type: "heading",
+        text: "Use short focused sessions",
+      },
+      {
+        type: "list",
+        items: [
+          "Start with the hardest task while focus is highest.",
+          "Review instructions before beginning each assignment.",
+          "Finish with a quick summary of what was learned.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "A repeatable homework workflow makes study time more efficient and helps students feel more in control of their progress.",
+      },
+    ],
   },
   {
     slug: "cat4-exam-preparation-in-dubai",
     title: "CAT4 Exam Preparation in Dubai",
     date: "February 20, 2026",
+    author: "Yusuf Khan",
+    authorBio: "Assessment coach specialising in CAT4 readiness and reasoning development for young learners.",
+    category: "Prep",
+    readingTime: "5 min read",
+    excerpt:
+      "A practical CAT4 preparation guide for families who want stronger reasoning, verbal and quantitative confidence ahead of the test.",
+    image:
+      "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1300&q=80",
+    tags: ["CAT4", "Tests", "Reasoning"],
+    content: [
+      {
+        type: "paragraph",
+        text: "CAT4 is designed to measure thinking skills. Preparation should focus on reasoning speed, pattern recognition, and clear problem-solving strategies.",
+      },
+      {
+        type: "heading",
+        text: "Practice with purpose",
+      },
+      {
+        type: "list",
+        items: [
+          "Familiarise students with the CAT4 question format.",
+          "Work through verbal and non-verbal reasoning examples.",
+          "Build confidence with short, timed practice sessions.",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "The best preparation balances practice in each area with time to reflect on what improvements are needed next.",
+      },
+    ],
   },
 ];
 

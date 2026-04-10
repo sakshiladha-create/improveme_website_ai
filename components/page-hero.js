@@ -1,11 +1,11 @@
 import Link from "next/link";
 
-export function PageHero({ eyebrow, title, copy, breadcrumbs = [] }) {
+export function PageHero({ eyebrow, title, copy, breadcrumbs = [], backgroundImage }) {
   return (
     <section
       className="relative overflow-hidden bg-[#0f172a] pb-16 pt-28 md:pb-20 md:pt-32"
       style={{
-        backgroundImage: "url('/overlay_image.webp')",
+        backgroundImage: `url('${backgroundImage || "/overlay_image.webp"}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
