@@ -154,6 +154,7 @@ export const navigation = [
   { label: "Our Courses", href: "/courses", menu: "courses" },
   { label: "Our Curriculum", href: "/curriculum", menu: "curriculum" },
   { label: "About Us", href: "/about" },
+  { label: "Our Teachers", href: "/our-teachers" },
   { label: "Blogs", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
@@ -528,6 +529,117 @@ export const blogPosts = [
     date: "February 20, 2026",
   },
 ];
+
+export const teachersPage = {
+  hero: {
+    title: "Meet Our Expert Teachers",
+    subtitle:
+      "Experienced mentors, specialist educators, and trusted guides helping every student build confidence and real academic momentum.",
+  },
+  teachers: [
+    {
+      name: "Sarah Ahmed",
+      role: "IELTS Expert",
+      experience: "10+ years experience",
+      bio: "Specialises in IELTS strategy, speaking confidence, and academic writing. Known for structured preparation plans that help students improve quickly.",
+      image:
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80",
+    },
+    {
+      name: "Daniel Brooks",
+      role: "Communication Coach",
+      experience: "8+ years experience",
+      bio: "Helps learners strengthen public speaking, interview technique, and fluent communication with practical, confidence-building coaching.",
+      image:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80",
+    },
+    {
+      name: "Priya Nair",
+      role: "Academic English Mentor",
+      experience: "9+ years experience",
+      bio: "Supports students with essay structure, reading comprehension, and advanced vocabulary using clear, personalised teaching methods.",
+      image:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=900&q=80",
+    },
+    {
+      name: "Michael Chen",
+      role: "Learning Skills Instructor",
+      experience: "12+ years experience",
+      bio: "Focuses on study techniques, exam readiness, and subject mastery with a calm mentoring approach and measurable student progress.",
+      image:
+        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80",
+    },
+    {
+      name: "Aisha Rahman",
+      role: "Student Success Coach",
+      experience: "7+ years experience",
+      bio: "Combines academic mentoring with motivation coaching to help students stay consistent, organised, and confident in their learning journey.",
+      image:
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80",
+    },
+    {
+      name: "James Carter",
+      role: "Professional Mentor",
+      experience: "11+ years experience",
+      bio: "Brings real-world teaching experience and practical guidance, helping students turn academic goals into long-term success habits.",
+      image:
+        "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=900&q=80",
+    },
+  ],
+  strengths: [
+    {
+      title: "Certified Experts",
+      copy: "Our teachers bring strong academic credentials and specialist subject knowledge to every session.",
+    },
+    {
+      title: "Real-world Experience",
+      copy: "Students learn from professionals who understand both classroom outcomes and practical communication skills.",
+    },
+    {
+      title: "Personalized Mentorship",
+      copy: "Every learner gets individual guidance, targeted feedback, and support matched to their pace and goals.",
+    },
+    {
+      title: "Proven Results",
+      copy: "Our teaching combines consistency, clarity, and encouragement to help students achieve lasting progress.",
+    },
+  ],
+  environment: {
+    title: "Our Learning Environment",
+    subtitle:
+      "Our 7,000 sq ft teaching facility in Gold and Diamond Park is purpose-built to inspire and motivate young learners. With UK-themed classrooms, comfortable study spaces, and modern resources, we've created an environment where students love to learn.",
+    images: [
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=600&q=80",
+    ],
+  },
+  approach: [
+    {
+      title: "Academic Excellence",
+      description:
+        "Small group tutoring in Maths, English, and Sciences. Every session is tailored to your child's year group, exam board, and school curriculum.",
+      icon: "GraduationCap",
+    },
+    {
+      title: "Skills-Based Learning",
+      description:
+        "Chess for strategic thinking, Financial Literacy for real-world skills, CAT4 prep for cognitive development, and AI Literacy for future readiness.",
+      icon: "Brain",
+    },
+    {
+      title: "Exam-Focused",
+      description:
+        "Our tutors know what examiners expect across GCSE, IGCSE, A-Level, and IB. We teach exam technique, time management, and how to maximize marks.",
+      icon: "Trophy",
+    },
+  ],
+};
 
 export const curriculumTree = {
   primary: {

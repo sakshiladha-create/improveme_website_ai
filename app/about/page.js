@@ -43,7 +43,7 @@ export default function AboutPage() {
           <div className="relative overflow-hidden rounded-[30px] border border-gray-200 bg-white px-8 py-10 shadow-[0_20px_60px_rgba(15,23,42,0.06)]">
             <span className="pointer-events-none absolute left-4 top-4 text-[80px] leading-none text-yellow-400/10 md:left-8 md:text-[150px]">“</span>
             <div className="relative mx-auto max-w-4xl text-center">
-              <div className="mx-auto h-[220px] w-[220px] overflow-hidden rounded-full border-[3px] border-yellow-400 md:h-[280px] md:w-[280px]">
+              <div className="mx-auto h-55 w-55 overflow-hidden rounded-full border-[3px] border-yellow-400 md:h-70 md:w-70">
                 <Image
                   src="/neeta-daswani.jpeg"
                   alt="Neeta Daswani"
@@ -56,7 +56,7 @@ export default function AboutPage() {
               <blockquote className="mt-8 text-[1.35rem] italic leading-[1.8] text-navy-900">
                 {aboutPage.founder.quote}
               </blockquote>
-              <div className="mx-auto mt-8 max-w-[680px] space-y-4 text-left">
+              <div className="mx-auto mt-8 max-w-170 space-y-4 text-left">
                 {aboutPage.founder.paragraphs.map((paragraph) => (
                   <p key={paragraph} className="mb-0 text-[1.06rem] leading-8 text-[#365080]">
                     {paragraph}

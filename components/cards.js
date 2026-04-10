@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { clsx } from "clsx";
 import { getCourseIcon } from "@/data/site-data";
@@ -90,5 +91,36 @@ export function ContactMethod({ label, value, href }) {
       </span>
       <span className="text-xs uppercase tracking-[0.18em] text-navy-700">{label}</span>
     </a>
+  );
+}
+
+export function TeacherCard({ teacher, index = 0 }) {
+  return (
+    <article
+      className="white-card group flex h-full flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_60px_rgba(15,23,42,0.12)]"
+      style={{ animation: `fadeInUp 0.6s ease-out ${index * 0.08}s both` }}
+    >
+      <div className="relative h-72 overflow-hidden bg-slate-100">
+        <Image
+          src={teacher.image}
+          alt={teacher.name}
+          fill
+          unoptimized
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div className="absolute inset-x-0 top-4 flex justify-start px-4">
+          <span className="rounded-full bg-white/92 px-3 py-1 text-xs font-semibold tracking-[0.14em] text-navy-900 shadow-sm uppercase">
+            {teacher.experience}
+          </span>
+        </div>
+      </div>
+      <div className="flex flex-1 flex-col p-6">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-yellow-500">{teacher.role}</p>
+        <h3 className="mb-2 font-display text-[1.45rem] font-bold tracking-[-0.03em] text-navy-900">
+          {teacher.name}
+        </h3>
+        <p className="mb-0 text-[0.98rem] leading-7 text-slate-600">{teacher.bio}</p>
+      </div>
+    </article>
   );
 }
