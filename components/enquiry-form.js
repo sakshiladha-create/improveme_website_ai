@@ -38,7 +38,10 @@ function Field({ label, placeholder, hint, select = false }) {
     <label className="block">
       <span className="mb-2 block text-sm font-medium text-navy-900" dangerouslySetInnerHTML={{ __html: label }} />
       {select ? (
-        <select className="h-12 w-full rounded border border-gray-300 px-4 text-slate-500 focus:border-navy-600 focus:outline-none">
+        <select
+          className="h-12 w-full rounded border border-gray-300 px-4 text-slate-500 focus:border-navy-600 focus:outline-none"
+          suppressHydrationWarning
+        >
           <option>{placeholder || "Select"}</option>
         </select>
       ) : (
@@ -46,6 +49,7 @@ function Field({ label, placeholder, hint, select = false }) {
           type="text"
           placeholder={placeholder}
           className="h-12 w-full rounded border border-gray-300 px-4 text-slate-700 placeholder:text-slate-400 focus:border-navy-600 focus:outline-none"
+          suppressHydrationWarning
         />
       )}
       {hint ? <span className="mt-1 block text-xs text-slate-500">{hint}</span> : null}

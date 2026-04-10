@@ -11,29 +11,29 @@ function MegaPanel({ menuKey }) {
   const sections = megaMenus[menuKey];
 
   return (
-    <div className="mega-panel absolute left-1/2 top-full z-50 mt-2 w-[720px] -translate-x-1/2 rounded-[20px] border border-gray-200 bg-white p-6 shadow-[0_30px_90px_rgba(15,23,42,0.16)]">
-      <div className="grid grid-cols-3 gap-6">
+    <div className="mega-panel absolute left-1/2 top-full z-50 mt-3 w-[920px] -translate-x-1/2 rounded-xl border border-slate-200 bg-white p-10 shadow-[0_20px_60px_rgba(15,23,42,0.12)]">
+      <div className="grid grid-cols-3 gap-16">
         {sections.map((section) => (
-          <div key={section.title} className="space-y-3">
-            <h4 className="mb-0 text-[13px] font-bold uppercase tracking-[0.14em] text-navy-700">
+          <div key={section.title} className="space-y-6">
+            <h4 className="text-[12px] font-bold uppercase tracking-[0.15em] text-slate-700">
               {section.title}
             </h4>
             {section.description ? (
-              <p className="mb-0 text-sm leading-6 text-slate-500">{section.description}</p>
+              <p className="text-sm leading-6 text-slate-600">{section.description}</p>
             ) : null}
             {section.groups ? (
-              <div className="space-y-4">
+              <div className="space-y-5">
                 {section.groups.map((group) => (
                   <div key={group.label} className="space-y-2">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">
                       {group.label}
                     </p>
-                    <ul className="space-y-2">
+                    <ul className="space-y-2.5">
                       {group.links.map((link) => (
                         <li key={link.href}>
                           <Link
                             href={link.href}
-                            className="text-sm text-slate-600 transition-colors hover:text-yellow-500"
+                            className="text-sm text-slate-700 transition-colors hover:text-yellow-500"
                           >
                             {link.label}
                           </Link>
@@ -44,15 +44,18 @@ function MegaPanel({ menuKey }) {
                 ))}
               </div>
             ) : (
-              <ul className="space-y-2">
+              <ul className="space-y-4">
                 {section.links.map((link) => (
-                  <li key={link.href}>
+                  <li key={link.href} className="group">
                     <Link
                       href={link.href}
-                      className="text-sm text-slate-600 transition-colors hover:text-yellow-500"
+                      className="block text-sm font-medium text-slate-900 transition-colors group-hover:text-yellow-500"
                     >
                       {link.label}
                     </Link>
+                    {link.description && (
+                      <p className="mt-1 text-xs text-slate-500">{link.description}</p>
+                    )}
                   </li>
                 ))}
               </ul>
