@@ -1,0 +1,748 @@
+import {
+  Atom,
+  BadgeDollarSign,
+  Beaker,
+  Binary,
+  BookOpen,
+  Bot,
+  Brain,
+  BriefcaseBusiness,
+  Calculator,
+  ChevronRight,
+  CircleDollarSign,
+  FlaskConical,
+  GraduationCap,
+  HeartHandshake,
+  House,
+  Languages,
+  Lightbulb,
+  Microscope,
+  MoveRight,
+  Orbit,
+  Phone,
+  Sigma,
+  Sparkles,
+  Trophy,
+  WandSparkles,
+} from "lucide-react";
+
+export const contactDetails = {
+  location: "Gold & Diamond Park, Dubai",
+  addressLines: ["Suite 3016–3017, Building 3", "Gold and Diamond Park, Dubai"],
+  phones: [
+    { label: "Primary", detail: "Primary: +971-50 185 2505", value: "+971501852505" },
+    {
+      label: "Lower Secondary (Ages 11–14)",
+      detail: "Lower Secondary (Ages 11–14): +971 58 533 4989",
+      value: "+971585334989",
+    },
+    {
+      label: "Upper Secondary (Ages 15+)",
+      detail: "Upper Secondary (Ages 15+): +971 58 547 1457",
+      value: "+971585471457",
+    },
+  ],
+  landline: "+971 4 380 5525",
+  email: "contact@improvemeinstitute.com",
+  hours: "Mon–Fri: 9:30am–8:00pm · Sat: 9:00am–7:00pm",
+};
+
+export const topSchools = [
+  "Nord Anglia School",
+  "Dubai College",
+  "Jumeirah College",
+  "Repton Dubai",
+  "North London Collegiate School",
+  "Jumeirah English Speaking School",
+  "Kings Dubai",
+  "Royal Grammar School Guildford Dubai",
+  "GEMS Jumeirah Primary School",
+  "Dubai American Academy",
+  "Dubai International Academy Al Barsha",
+  "Dubai English Speaking College",
+  "Brighton College Dubai",
+  "Dubai British School",
+  "Jebel Ali School",
+  "The English College Dubai",
+  "Safa Community School",
+  "GEMS World Academy",
+  "Al Safa British School",
+];
+
+export const megaMenus = {
+  courses: [
+    {
+      title: "Primary",
+      links: [
+        { label: "EYFS", href: "/curriculum/primary/eyfs" },
+        { label: "Key Stage 1", href: "/curriculum/primary/ks1" },
+        { label: "Key Stage 2", href: "/curriculum/primary/ks2" },
+        { label: "Mathematics", href: "/courses/mathematics" },
+        { label: "English", href: "/courses/english" },
+        { label: "Science", href: "/courses/science" },
+      ],
+    },
+    {
+      title: "Secondary",
+      groups: [
+        {
+          label: "Qualifications",
+          links: [
+            { label: "Key Stage 3", href: "/curriculum/secondary/ks3" },
+            { label: "GCSE", href: "/curriculum/secondary/gcse" },
+            { label: "IGCSE", href: "/curriculum/secondary/igcse" },
+            { label: "A-Level", href: "/curriculum/secondary/a-level" },
+            { label: "IB Diploma", href: "/curriculum/secondary/ib" },
+            { label: "MYP", href: "/curriculum/secondary/myp" },
+          ],
+        },
+        {
+          label: "Subjects",
+          links: [
+            { label: "Mathematics", href: "/courses/mathematics" },
+            { label: "English", href: "/courses/english" },
+            { label: "Physics", href: "/courses/physics" },
+            { label: "Chemistry", href: "/courses/chemistry" },
+            { label: "Biology", href: "/courses/biology" },
+            { label: "Business Studies", href: "/courses/business-studies" },
+            { label: "Economics", href: "/courses/economics" },
+            { label: "Psychology", href: "/courses/psychology" },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Enrichment",
+      links: [
+        { label: "CAT4 Prep", href: "/courses/cat-prep" },
+        { label: "7+/11+ Entrance Prep", href: "/courses/entrance-prep" },
+        { label: "Chess Mastery", href: "/courses/chess" },
+        { label: "Financial Literacy", href: "/courses/financial-literacy" },
+        { label: "AI Literacy", href: "/courses/ai-literacy" },
+        { label: "Counselling", href: "/courses/counselling" },
+      ],
+    },
+  ],
+  curriculum: [
+    {
+      title: "Primary Curriculum",
+      description: "Foundational learning from ages 3 to 11 with clear progression between each key stage.",
+      links: [
+        { label: "EYFS", href: "/curriculum/primary/eyfs" },
+        { label: "Key Stage 1", href: "/curriculum/primary/ks1" },
+        { label: "Key Stage 2", href: "/curriculum/primary/ks2" },
+        { label: "Primary Overview", href: "/curriculum/primary" },
+      ],
+    },
+    {
+      title: "Secondary Curriculum",
+      description: "Exam-board aligned support from KS3 through GCSE, IGCSE, A-Level, IB Diploma, and MYP.",
+      links: [
+        { label: "Key Stage 3", href: "/curriculum/secondary/ks3" },
+        { label: "GCSE", href: "/curriculum/secondary/gcse" },
+        { label: "IGCSE", href: "/curriculum/secondary/igcse" },
+        { label: "A-Level", href: "/curriculum/secondary/a-level" },
+        { label: "IB Diploma", href: "/curriculum/secondary/ib" },
+        { label: "MYP", href: "/curriculum/secondary/myp" },
+      ],
+    },
+  ],
+};
+
+export const navigation = [
+  { label: "Home", href: "/" },
+  { label: "Our Courses", href: "/courses", menu: "courses" },
+  { label: "Our Curriculum", href: "/curriculum", menu: "curriculum" },
+  { label: "About Us", href: "/about" },
+  { label: "Blogs", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+];
+
+const iconMap = {
+  mathematics: Calculator,
+  english: BookOpen,
+  science: Atom,
+  biology: Microscope,
+  chemistry: FlaskConical,
+  physics: Orbit,
+  "business-studies": BriefcaseBusiness,
+  economics: CircleDollarSign,
+  psychology: Brain,
+  "cat-prep": Sparkles,
+  "entrance-prep": GraduationCap,
+  chess: Trophy,
+  "financial-literacy": BadgeDollarSign,
+  "ai-literacy": Bot,
+  counselling: HeartHandshake,
+  "home-education": House,
+  "further-mathematics": Sigma,
+  "english-language": Languages,
+  sciences: Beaker,
+  "individuals-societies": Lightbulb,
+};
+
+export const courses = [
+  {
+    slug: "mathematics",
+    title: "Mathematics",
+    short: "Number & problem-solving",
+    description: "Number sense to calculus. Build confidence, fluency, and exam technique across every curriculum.",
+    color: "from-[#4A6FD4] to-[#5A84F0]",
+    icon: "mathematics",
+    boards: ["EYFS", "KS1", "KS2", "KS3", "GCSE", "IGCSE", "A-Level", "IB", "MYP"],
+  },
+  {
+    slug: "english",
+    title: "English",
+    short: "Reading, writing & comprehension",
+    description: "Reading, writing, literature, essay construction, and confident communication.",
+    color: "from-[#E8732A] to-[#F58A2D]",
+    icon: "english",
+    boards: ["EYFS", "KS1", "KS2", "KS3", "GCSE", "IGCSE", "A-Level", "IB", "MYP"],
+  },
+  {
+    slug: "science",
+    title: "Science",
+    short: "Natural world & scientific enquiry",
+    description: "General science support before specialisation into biology, chemistry, and physics.",
+    color: "from-[#2EAE6B] to-[#37C87A]",
+    icon: "science",
+    boards: ["KS2", "KS3", "MYP"],
+  },
+  {
+    slug: "biology",
+    title: "Biology",
+    short: "Cell biology to ecology",
+    description: "Comprehensive tutoring in biological systems, exam application, and scientific writing.",
+    color: "from-[#1D9060] to-[#27B676]",
+    icon: "biology",
+    boards: ["GCSE", "IGCSE", "A-Level", "IB"],
+  },
+  {
+    slug: "chemistry",
+    title: "Chemistry",
+    short: "Organic, inorganic & physical",
+    description: "Methodical support with calculation, practical concepts, and structured exam technique.",
+    color: "from-[#8B45B5] to-[#B155E6]",
+    icon: "chemistry",
+    boards: ["GCSE", "IGCSE", "A-Level", "IB"],
+  },
+  {
+    slug: "physics",
+    title: "Physics",
+    short: "Mechanics, electricity & waves",
+    description: "Clear explanation-led tutoring for formula fluency, problem-solving, and exam confidence.",
+    color: "from-[#29A8C4] to-[#42C5E2]",
+    icon: "physics",
+    boards: ["GCSE", "IGCSE", "A-Level", "IB"],
+  },
+  {
+    slug: "business-studies",
+    title: "Business Studies",
+    short: "Case studies & exam technique",
+    description: "Marketing, finance, strategy, and analytical writing for high-scoring exam answers.",
+    color: "from-[#D4541A] to-[#F27A2E]",
+    icon: "business-studies",
+    boards: ["GCSE", "IGCSE", "A-Level", "IB"],
+  },
+  {
+    slug: "economics",
+    title: "Economics",
+    short: "Micro, macro & data analysis",
+    description: "Microeconomics, macroeconomics, diagrams, and evaluation technique built for every board.",
+    color: "from-[#1A7A6B] to-[#239987]",
+    icon: "economics",
+    boards: ["GCSE", "IGCSE", "A-Level", "IB"],
+  },
+  {
+    slug: "psychology",
+    title: "Psychology",
+    short: "Research methods & approaches",
+    description: "Psychological approaches, studies, evaluation, and essay technique for exam performance.",
+    color: "from-[#C42B4A] to-[#E04263]",
+    icon: "psychology",
+    boards: ["GCSE", "A-Level", "IB"],
+  },
+  {
+    slug: "cat-prep",
+    title: "CAT Prep",
+    short: "Preparation for CAT4 cognitive ability tests",
+    description: "Targeted preparation for school admissions and cognitive assessment formats.",
+    color: "from-[#8B45F7] to-[#B06AFF]",
+    icon: "cat-prep",
+    boards: ["Ages 7–15"],
+  },
+  {
+    slug: "entrance-prep",
+    title: "7+/11+ Entrance Prep",
+    short: "Structured preparation for UK and Dubai school entrance exams",
+    description: "Exam prep for selective school assessments with focused verbal, non-verbal, maths, and English practice.",
+    color: "from-[#3749FF] to-[#5A6AFE]",
+    icon: "entrance-prep",
+    boards: ["7+", "11+"],
+  },
+  {
+    slug: "chess",
+    title: "Chess Mastery",
+    short: "Developing logic, strategy, and focus",
+    description: "Strategic thinking, concentration, and pattern recognition through structured chess coaching.",
+    color: "from-[#FFB326] to-[#FFC94D]",
+    icon: "chess",
+    boards: ["All ages"],
+  },
+  {
+    slug: "financial-literacy",
+    title: "Financial Literacy",
+    short: "Practical money skills and economic awareness",
+    description: "Real-world understanding of money, budgeting, saving, and decision-making.",
+    color: "from-[#19C89B] to-[#4BE0B9]",
+    icon: "financial-literacy",
+    boards: ["All ages"],
+  },
+  {
+    slug: "ai-literacy",
+    title: "AI Literacy",
+    short: "Understanding AI tools and thinking critically about technology",
+    description: "A future-skills programme covering responsible AI use, prompt thinking, and digital confidence.",
+    color: "from-[#3B82F6] to-[#71A8FF]",
+    icon: "ai-literacy",
+    boards: ["All ages"],
+  },
+  {
+    slug: "counselling",
+    title: "Educational Counselling",
+    short: "School entrance, subject selection & university applications",
+    description: "Guidance around pathways, admissions, subject choices, and long-term planning.",
+    color: "from-[#FF4F6D] to-[#FF6B87]",
+    icon: "counselling",
+    boards: ["Families", "Students"],
+  },
+  {
+    slug: "home-education",
+    title: "Home Education",
+    short: "A structured learning environment for home-schooled students",
+    description: "A professional, centre-based morning programme that keeps home-schooled students on track.",
+    color: "from-[#18C8CC] to-[#84E4E6]",
+    icon: "home-education",
+    boards: ["Primary", "Secondary"],
+  },
+];
+
+export const homePage = {
+  hero: {
+    title: "Dubai's Top Tutoring Centre — Every Curriculum from Ages 3 to 18",
+    copy:
+      "From Primary through to GCSE, IGCSE, A-Level, IB Diploma, MYP, and international curricula — we support students aged 3 to 18 across every stage of their education. Since 2010, we've helped 1,000+ students from 30+ Dubai schools achieve stronger results.",
+    ctaPrimary: "Book Free Assessment",
+    ctaSecondary: "Explore Courses",
+    badgeTitle: "KHDA-approved · Small groups (a maximum of six students)",
+    badgeCopy: "One consistent approach from age 3 to 18",
+    image: "https://www.improvemeinstitute.com/overlay_image.webp",
+  },
+  learningJourney: {
+    title: "A full academic journey, ages 3 to 18",
+    primary: {
+      subtitle: "Ages 3–11 · Building the Foundation",
+      copy:
+        "Strong foundations in Maths, English, and Science across EYFS, Key Stage 1, and Key Stage 2. Each session is matched to your child's year group and school curriculum. 7+ and 11+ entrance prep available.",
+      tags: ["EYFS (Ages 3–5)", "Key Stage 1 (Ages 5–7)", "Key Stage 2 (Ages 7–11)"],
+      cards: ["mathematics", "english", "science"],
+      href: "/curriculum/primary",
+    },
+    secondary: {
+      subtitle: "Ages 11–18",
+      copy:
+        "Key Stage 3 to A-Level and IB. Every session aligns with your child's exam board and school timetable. Our tutors know what examiners expect — and teach accordingly.",
+      tags: ["Years 7–9 (KS3)", "MYP (Ages 11–16)", "GCSE/IGCSE (Ages 14–16)", "A-Levels/IB (Ages 16–18)"],
+      cards: ["mathematics", "english", "science", "biology", "chemistry", "physics", "business-studies", "economics", "psychology"],
+      href: "/curriculum/secondary",
+    },
+  },
+  enrichment: {
+    title: "Building well-rounded learners",
+    copy: "Alongside their academic programme.",
+    cards: ["cat-prep", "chess", "entrance-prep", "financial-literacy", "ai-literacy", "counselling"],
+    banner: {
+      title: "A Structured Learning Environment for Home-Schooled Students",
+      eyebrow: "Home Education",
+      copy:
+        "Our morning programme gives home-schooled students a professional, centre-based space to learn — keeping them on track, helping them get ahead, and ensuring their education is structured, consistent, and tailored to their needs.",
+      href: "/courses/home-education",
+    },
+  },
+  approach: [
+    {
+      number: "01",
+      title: "Small groups, not classrooms",
+      copy:
+        "Our sessions run in small groups of 3–6 students. Every child gets direct attention, can ask questions freely, and never gets lost at the back of a room.",
+    },
+    {
+      number: "02",
+      title: "We reverse-engineer the concept",
+      copy:
+        "When a child is stuck, we don't repeat the same explanation louder. We break the concept down from the bottom up — finding exactly where understanding broke down and rebuilding from there.",
+    },
+    {
+      number: "03",
+      title: "Weekly sessions with practice papers and worksheets",
+      copy:
+        "Consistency matters. Weekly sessions, structured worksheets, and past paper practice build the muscle memory that exams require. We don't cram — we build.",
+    },
+    {
+      number: "04",
+      title: "Progress reports back to parents",
+      copy:
+        "You never have to guess whether it's working. We send regular progress reports so you know exactly where your child is, what's improving, and what needs more work.",
+    },
+  ],
+  testimonials: [
+    {
+      name: "Komal Kapoor",
+      detail: "Physics & Further Maths",
+      quote:
+        "I've been at Improve ME for 3 years now and I've seen significant improvement in my grades. The teachers are super helpful and explain things clearly.",
+    },
+    {
+      name: "Aron Kelly",
+      detail: "Jumeirah College — 5 Subjects",
+      quote:
+        "Coming from JC, this institute has helped me achieve top marks across all subjects. I have taken English, Maths, and 3 Sciences.",
+    },
+    {
+      name: "Nazia Hassan",
+      detail: "Parent Review",
+      quote:
+        "Improve ME has helped my boys so much. Since joining Improve ME, the difference has been remarkable. They actually look forward to coming.",
+    },
+  ],
+};
+
+export const aboutPage = {
+  hero: {
+    eyebrow: "Our Story",
+    title: "How Improve ME Began",
+    paragraphs: [
+      "Improve ME Institute started as a family-run business, built from the ground up by the Daswani family with a single driving purpose: to raise student attainment levels in Dubai.",
+      "What began as a small tutoring operation has grown into one of Dubai's most trusted academic centres — KHDA-approved, operating since 2010, and serving students from over 30 schools across the city.",
+      "From the very beginning, the focus was never on volume. It was on results. Small groups, consistent tutors, structured learning, and honest communication with parents. That hasn't changed.",
+      "Today Improve ME supports students from age 3 all the way through to A-Level and IB Diploma — a complete academic journey, under one roof, with one consistent approach.",
+    ],
+    stats: [
+      { value: "1,000+", label: "Students" },
+      { value: "40+", label: "Specialist Tutors" },
+      { value: "2010", label: "Established" },
+      { value: "4.8★", label: "Google Rating" },
+    ],
+  },
+  founder: {
+    image: "https://www.improvemeinstitute.com/Neeta%20Daswani%20professional.jpeg",
+    quote:
+      "For over thirty years, I have dedicated my career to helping students learn better and achieve outstanding results. Improve ME Institute was built on the same promise: raise standards, build future-ready skills, and support every child to thrive in the real world.",
+    paragraphs: [
+      "Today, we stand strong with 40 faculty members and thousands of students enrolled annually, as we combine high-quality tutoring, life-skills programmes, and proven teaching methods to improve student attainment.",
+      "I am especially proud that the next generation of my family has joined this mission. My sons, Shaun and Jason, now lead our Upper and Lower Secondary divisions, while I continue to oversee the centre's values, standards, and long-term direction.",
+    ],
+  },
+};
+
+export const faqItems = [
+  {
+    question: "How are groups structured?",
+    answer: "Most sessions run in small groups of 3–6 students. Students are placed by year group, curriculum, and academic level.",
+  },
+  {
+    question: "Do you offer a free assessment?",
+    answer: "Yes. Families can book a free assessment so the team can recommend the right programme, tutor, and group.",
+  },
+  {
+    question: "Which curricula do you cover?",
+    answer: "Improve ME supports Primary, KS3, GCSE, IGCSE, A-Level, IB Diploma, MYP, and international curricula across Dubai schools.",
+  },
+  {
+    question: "Where is the centre located?",
+    answer: "The centre is based at Suite 3016–3017, Building 3, Gold and Diamond Park, Dubai.",
+  },
+  {
+    question: "How quickly do you reply to enquiries?",
+    answer: "The contact team aims to respond within two hours during working days.",
+  },
+];
+
+export const glossaryTerms = [
+  {
+    term: "EYFS",
+    definition: "The Early Years Foundation Stage covering ages 3 to 5, with emphasis on foundational literacy, numeracy, and development.",
+  },
+  {
+    term: "KS1",
+    definition: "Key Stage 1 in the British curriculum, typically covering Years 1 and 2 for students aged 5 to 7.",
+  },
+  {
+    term: "KS2",
+    definition: "Key Stage 2, covering Years 3 to 6 for ages 7 to 11.",
+  },
+  {
+    term: "GCSE / IGCSE",
+    definition: "Public secondary qualifications generally taken at ages 14 to 16, with IGCSE often used across international schools.",
+  },
+  {
+    term: "IB Diploma",
+    definition: "The International Baccalaureate Diploma Programme, a rigorous pre-university qualification for ages 16 to 18.",
+  },
+  {
+    term: "MYP",
+    definition: "The IB Middle Years Programme supporting interdisciplinary learning from roughly ages 11 to 16.",
+  },
+];
+
+export const blogPosts = [
+  {
+    slug: "career-guidance-in-dubai",
+    title: "Career Guidance in Dubai",
+    date: "November 8, 2024",
+  },
+  {
+    slug: "british-curriculum-syllabus-explained",
+    title: "British Curriculum Syllabus Explained",
+    date: "December 6, 2024",
+  },
+  {
+    slug: "top-tips-to-manage-exam-stress",
+    title: "Top Tips to Manage Exam Stress",
+    date: "January 6, 2025",
+  },
+  {
+    slug: "screen-time-study-time",
+    title: "Screen Time, Study Time",
+    date: "January 20, 2025",
+  },
+  {
+    slug: "strategies-for-tackling-homework",
+    title: "Strategies for Tackling Homework",
+    date: "February 6, 2026",
+  },
+  {
+    slug: "cat4-exam-preparation-in-dubai",
+    title: "CAT4 Exam Preparation in Dubai",
+    date: "February 20, 2026",
+  },
+];
+
+export const curriculumTree = {
+  primary: {
+    title: "Primary Curriculum",
+    subtitle: "Ages 3 to 11",
+    intro:
+      "Strong foundations in Maths, English, and Science across EYFS, Key Stage 1, and Key Stage 2, with tuition mapped carefully to each child's school curriculum.",
+    sections: {
+      eyfs: {
+        title: "EYFS",
+        stages: ["Mathematics", "English"],
+      },
+      ks1: {
+        title: "Key Stage 1",
+        stages: ["Mathematics", "English"],
+      },
+      ks2: {
+        title: "Key Stage 2",
+        stages: ["Mathematics", "English", "Science"],
+      },
+    },
+  },
+  secondary: {
+    title: "Secondary Curriculum",
+    subtitle: "Ages 11 to 18",
+    intro:
+      "Exam-board aware support across Key Stage 3, GCSE, IGCSE, A-Level, IB Diploma, and MYP with specialist subject tutors.",
+    sections: {
+      ks3: {
+        title: "Key Stage 3",
+        stages: ["Mathematics", "English", "Science"],
+      },
+      gcse: {
+        title: "GCSE",
+        stages: ["Mathematics", "Biology", "Chemistry", "Physics", "Further Mathematics", "English Language", "Business Studies", "Economics", "Psychology"],
+      },
+      igcse: {
+        title: "IGCSE",
+        stages: ["Mathematics", "Biology", "Chemistry", "Physics", "English Language", "Business Studies", "Economics"],
+      },
+      "a-level": {
+        title: "A-Level",
+        stages: ["Mathematics", "Further Mathematics", "English Language", "Biology", "Chemistry", "Physics", "Business", "Economics", "Psychology"],
+      },
+      ib: {
+        title: "IB Diploma",
+        stages: ["Mathematics", "English", "Biology", "Chemistry", "Physics", "Economics", "Psychology", "Business Studies"],
+      },
+      myp: {
+        title: "MYP",
+        stages: ["Mathematics", "English", "Sciences", "Individuals & Societies"],
+      },
+    },
+  },
+};
+
+export const footerColumns = [
+  {
+    title: "Primary",
+    links: [
+      { label: "EYFS", href: "/curriculum/primary/eyfs" },
+      { label: "Key Stage 1", href: "/curriculum/primary/ks1" },
+      { label: "Key Stage 2", href: "/curriculum/primary/ks2" },
+      { label: "Mathematics", href: "/courses/mathematics" },
+      { label: "English", href: "/courses/english" },
+      { label: "Science", href: "/courses/science" },
+    ],
+  },
+  {
+    title: "Secondary",
+    groups: [
+      {
+        label: "Qualifications",
+        links: [
+          { label: "Key Stage 3", href: "/curriculum/secondary/ks3" },
+          { label: "GCSE", href: "/curriculum/secondary/gcse" },
+          { label: "IGCSE", href: "/curriculum/secondary/igcse" },
+          { label: "A-Level", href: "/curriculum/secondary/a-level" },
+          { label: "IB Diploma", href: "/curriculum/secondary/ib" },
+          { label: "MYP", href: "/curriculum/secondary/myp" },
+        ],
+      },
+      {
+        label: "Subjects",
+        links: [
+          { label: "Mathematics", href: "/courses/mathematics" },
+          { label: "English", href: "/courses/english" },
+          { label: "Physics", href: "/courses/physics" },
+          { label: "Chemistry", href: "/courses/chemistry" },
+          { label: "Biology", href: "/courses/biology" },
+          { label: "Business Studies", href: "/courses/business-studies" },
+          { label: "Economics", href: "/courses/economics" },
+          { label: "Psychology", href: "/courses/psychology" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Enrichment",
+    links: [
+      { label: "CAT4 Prep", href: "/courses/cat-prep" },
+      { label: "7+/11+ Entrance Prep", href: "/courses/entrance-prep" },
+      { label: "Chess Mastery", href: "/courses/chess" },
+      { label: "Financial Literacy", href: "/courses/financial-literacy" },
+      { label: "AI Literacy", href: "/courses/ai-literacy" },
+      { label: "Counselling", href: "/courses/counselling" },
+    ],
+  },
+  {
+    title: "Quick Links",
+    links: [
+      { label: "Home", href: "/" },
+      { label: "About Us", href: "/about" },
+      { label: "Our Courses", href: "/courses" },
+      { label: "Our Curriculum", href: "/curriculum" },
+      { label: "FAQ", href: "/faq" },
+      { label: "Glossary", href: "/glossary" },
+      { label: "Enrolment Form", href: "/enrolment-page" },
+      { label: "Contact Us", href: "/contact" },
+    ],
+  },
+];
+
+export function getCourseBySlug(slug) {
+  return courses.find((course) => course.slug === slug);
+}
+
+export function getCourseIcon(key) {
+  return iconMap[key] || ChevronRight;
+}
+
+export function buildCurriculumPage(slugs) {
+  if (!slugs || slugs.length === 0) {
+    return null;
+  }
+
+  const [group, stage, subject] = slugs;
+
+  if (!curriculumTree[group]) {
+    return null;
+  }
+
+  if (!stage) {
+    return {
+      kind: "overview",
+      group,
+      ...curriculumTree[group],
+    };
+  }
+
+  const stageData = curriculumTree[group].sections[stage];
+
+  if (!stageData) {
+    return null;
+  }
+
+  if (!subject) {
+    return {
+      kind: "stage",
+      group,
+      stage,
+      stageData,
+      title: stageData.title,
+      subtitle: curriculumTree[group].subtitle,
+      intro: curriculumTree[group].intro,
+    };
+  }
+
+  const name = subject
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ")
+    .replace("Ks", "KS")
+    .replace("Igcse", "IGCSE")
+    .replace("Gcse", "GCSE")
+    .replace("Ib", "IB");
+
+  return {
+    kind: "subject",
+    group,
+    stage,
+    subject,
+    title: `${stageData.title} ${name}`,
+    subtitle: curriculumTree[group].subtitle,
+    intro:
+      "Every session is matched to your child's school, exam board, and current level, with small-group teaching and a clear weekly progression plan.",
+  };
+}
+
+export function getBreadcrumbs(pathname) {
+  const parts = pathname.split("/").filter(Boolean);
+  const crumbs = [{ label: "Home", href: "/" }];
+  let current = "";
+
+  for (const part of parts) {
+    current += `/${part}`;
+    crumbs.push({
+      label: part
+        .split("-")
+        .map((item) => item.charAt(0).toUpperCase() + item.slice(1))
+        .join(" ")
+        .replace("Ks", "KS")
+        .replace("Igcse", "IGCSE")
+        .replace("Gcse", "GCSE")
+        .replace("Ib", "IB"),
+      href: current,
+    });
+  }
+
+  return crumbs;
+}
+
+export const icons = {
+  MoveRight,
+  Phone,
+  Binary,
+  WandSparkles,
+};
