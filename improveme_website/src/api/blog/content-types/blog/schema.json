@@ -17,6 +17,19 @@
     "slug": {
       "type": "string"
     },
+    "Image": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Date": {
+      "type": "date"
+    },
     "Description": {
       "type": "blocks"
     },

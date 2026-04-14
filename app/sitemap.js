@@ -1,5 +1,6 @@
-import { blogPosts, courses } from "@/data/site-data";
+import { courses } from "@/data/site-data";
 import { absoluteUrl } from "@/data/seo";
+import { fetchBlogs, encodeBlogSlug } from "@/lib/strapi";
 
 const staticRoutes = [
   "/",
@@ -16,7 +17,7 @@ const staticRoutes = [
   "/enrolment-page",
 ];
 
-export default function sitemap() {
+export default async function sitemap() {
   const staticEntries = staticRoutes.map((route) => ({
     url: absoluteUrl(route),
     lastModified: new Date(),
@@ -31,12 +32,18 @@ export default function sitemap() {
     priority: 0.8,
   }));
 
-  const blogEntries = blogPosts.map((post) => ({
-    url: absoluteUrl(`/blog/${post.slug}`),
-    lastModified: new Date(post.date),
-    changeFrequency: "monthly",
-    priority: 0.6,
-  }));
+  let blogEntries = [];
+  try {
+    const posts = await fetchBlogs();
+    blogEntries = posts.map((post) => ({
+      url: absoluteUrl(`/blog/${encodeBlogSlug(post.slug)}`),
+      lastModified: post?.updatedAt ? new Date(post.updatedAt) : new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    }));
+  } catch {
+    blogEntries = [];
+  }
 
   return [...staticEntries, ...courseEntries, ...blogEntries];
 }

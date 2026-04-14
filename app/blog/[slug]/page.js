@@ -1,9 +1,9 @@
-"use client";
-
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
-import { useState, useEffect, use } from "react";
 import { PageHero } from "@/components/page-hero";
+import { buildPageMetadata } from "@/data/seo";
+import { encodeBlogSlug, fetchBlogBySlug, formatBlogDate, getBlogCoverImage, richTextToPlainText } from "@/lib/strapi";
 
 function renderContent(block, index) {
   if (block.type === "paragraph") {
@@ -45,101 +45,37 @@ function renderContent(block, index) {
   return null;
 }
 
-export default function BlogPostPage({ params }) {
-  const { slug } = use(params);
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+export async function generateMetadata({ params }) {
+  const post = await fetchBlogBySlug(params?.slug);
+  if (!post) return {};
 
-  useEffect(() => {
-    async function fetchBlogPost() {
-      try {
-        // Fetch all blogs and find the one with matching slug
-        const response = await fetch('https://best-excitement-b109c761d6.strapiapp.com/api/blogs');
-        if (!response.ok) {
-          throw new Error('Failed to fetch blog post');
-        }
-        const data = await response.json();
-        
-        // Find the post with matching slug (remove leading slash if present)
-        const foundPost = data.data.find(p => p.slug === `/${slug}` || p.slug === slug);
-        
-        if (!foundPost) {
-          setError('Blog post not found');
-          return;
-        }
+  const title = post.Heading || "Blog";
+  const excerpt = richTextToPlainText(post.Description).slice(0, 160);
 
-        // Transform the post data
-        const transformedPost = {
-          id: foundPost.id,
-          title: foundPost.Heading,
-          slug: foundPost.slug.replace('/', ''),
-          category: "Blog",
-          date: new Date(foundPost.publishedAt || foundPost.createdAt).toLocaleDateString(),
-          author: "Improve Me Team",
-          readingTime: "5 min read",
-          content: foundPost.Description || [],
-          excerpt: extractTextFromRichText(foundPost.Description).substring(0, 200) + "..."
-        };
+  return buildPageMetadata({
+    title,
+    description: excerpt || undefined,
+    pathname: `/blog/${encodeBlogSlug(post.slug)}`,
+    image: getBlogCoverImage(post),
+  });
+}
 
-        setPost(transformedPost);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
+export default async function BlogPostPage({ params }) {
+  const post = await fetchBlogBySlug(params?.slug);
+  if (!post) return notFound();
 
-    fetchBlogPost();
-  }, [slug]);
-
-  // Helper function to extract plain text from Strapi rich text
-  function extractTextFromRichText(richText) {
-    if (!richText || !Array.isArray(richText)) return "";
-    return richText.map(block => {
-      if (block.type === 'paragraph' && block.children) {
-        return block.children.map(child => child.text || "").join("");
-      }
-      return "";
-    }).join(" ");
-  }
-
-  if (loading) {
-    return (
-      <>
-        <PageHero
-          eyebrow="Blog"
-          title="Loading..."
-          copy="Please wait while we load the blog post."
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            { label: "Blogs", href: "/blog" },
-            { label: "Loading", href: `/blog/${slug}` },
-          ]}
-        />
-        <section className="bg-white py-16">
-          <div className="section-container text-center">
-            <p>Loading blog post...</p>
-          </div>
-        </section>
-      </>
-    );
-  }
-
-  if (error || !post) {
-    return notFound();
-  }
+  const excerpt = richTextToPlainText(post.Description).slice(0, 220);
 
   return (
     <>
       <PageHero
         eyebrow="Blog"
-        title={post.title}
-        copy={post.excerpt}
+        title={post.Heading}
+        copy={excerpt}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Blogs", href: "/blog" },
-          { label: post.title, href: `/blog/${post.slug}` },
+          { label: post.Heading, href: `/blog/${encodeBlogSlug(post.slug)}` },
         ]}
       />
 
@@ -148,19 +84,34 @@ export default function BlogPostPage({ params }) {
           <article className="space-y-10 rounded-4xl border border-slate-200 bg-white p-8 shadow-[0_24px_64px_rgba(15,23,42,0.12)]">
             <div className="space-y-4">
               <div className="flex flex-wrap items-center gap-3 text-sm uppercase tracking-[0.18em] text-slate-500">
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-slate-700">{post.category}</span>
-                <span>{post.date}</span>
-                <span>{post.readingTime}</span>
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-slate-700">Blog</span>
+                <span>{formatBlogDate(post)}</span>
+                <span>5 min read</span>
               </div>
-              <p className="text-lg leading-8 text-slate-600">{post.excerpt}</p>
+              {excerpt ? <p className="text-lg leading-8 text-slate-600">{excerpt}</p> : null}
             </div>
 
-            <div className="overflow-hidden rounded-3xl bg-slate-100 flex items-center justify-center text-6xl font-bold text-slate-400">
-              {post.title.charAt(0)}
+            <div className="overflow-hidden rounded-3xl bg-slate-100">
+              <div className="relative aspect-video w-full">
+                {getBlogCoverImage(post) ? (
+                  <Image
+                    src={getBlogCoverImage(post)}
+                    alt={post.Heading || "Blog cover image"}
+                    fill
+                    sizes="(min-width: 1280px) 900px, 100vw"
+                    className="object-cover"
+                    priority
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,#0B3A75,#6D28D9)] text-6xl font-bold text-white">
+                    {(post.Heading || "B").slice(0, 1)}
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="space-y-8">
-              {post.content.map((block, index) => renderContent(block, index))}
+              {(post.Description || []).map((block, index) => renderContent(block, index))}
             </div>
 
             <div className="rounded-3xl bg-slate-100 p-8">
@@ -180,7 +131,7 @@ export default function BlogPostPage({ params }) {
                 ← Back to Blog
               </Link>
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-yellow-500">About the author</p>
-              <h3 className="mb-3 text-xl font-semibold tracking-[-0.03em] text-navy-900">{post.author}</h3>
+              <h3 className="mb-3 text-xl font-semibold tracking-[-0.03em] text-navy-900">Improve ME Team</h3>
               <p className="text-sm leading-7 text-slate-600">Expert in education and learning development at Improve Me.</p>
             </div>
 
