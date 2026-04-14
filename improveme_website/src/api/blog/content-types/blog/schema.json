@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "blogs",
+  "info": {
+    "singularName": "blog",
+    "pluralName": "blogs",
+    "displayName": "Blog"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Heading": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "blocks"
+    },
+    "blog_news": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::blog-new.blog-new",
+      "mappedBy": "blogs"
+    }
+  }
+}
