@@ -105,12 +105,13 @@ export function SiteHeader() {
           <div className="relative flex h-16 items-center justify-between">
             <Link href="/" className="transition-transform hover:scale-[1.03]" aria-label="Improve ME Institute Home">
               <Image
-                src="/logo.png"
-                alt="Improve ME Institute"
+                src="/logo.webp"
+                alt="Improve ME Institute tutoring centre Dubai logo"
                 width={185}
                 height={45}
                 className="h-9 w-auto"
-                unoptimized
+                sizes="185px"
+                priority
               />
             </Link>
 

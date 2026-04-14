@@ -105,7 +105,7 @@ export function TeacherCard({ teacher, index = 0 }) {
           src={teacher.image}
           alt={teacher.name}
           fill
-          unoptimized
+          sizes="(min-width: 1280px) 400px, (min-width: 768px) 50vw, 100vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-x-0 top-4 flex justify-start px-4">

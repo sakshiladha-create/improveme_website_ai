@@ -11,12 +11,12 @@ export function SiteFooter() {
           <div className="space-y-3">
             <Link href="/" className="inline-block">
               <Image
-                src="/logo.png"
-                alt="Improve ME Institute"
+                src="/logo.webp"
+                alt="Improve ME Institute tutoring centre Dubai logo"
                 width={185}
                 height={45}
                 className="h-[45px] w-auto max-w-[185px] object-contain"
-                unoptimized
+                sizes="185px"
               />
             </Link>
             <p className="text-sm text-white/60">Leading Tutoring Centre in Dubai</p>
@@ -94,7 +94,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-8 flex flex-col gap-2 border-t border-white/10 py-3 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
-          <p>Improve ME Institute © 2026. All Rights Reserved</p>
+          <p>Improve ME Institute 2026. All Rights Reserved.</p>
           <p>Operates under RAK Free Zone licence</p>
         </div>
       </div>

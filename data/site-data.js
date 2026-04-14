@@ -318,7 +318,7 @@ export const homePage = {
     ctaSecondary: "Explore Courses",
     badgeTitle: "KHDA-approved · Small groups (a maximum of six students)",
     badgeCopy: "One consistent approach from age 3 to 18",
-    image: "https://www.improvemeinstitute.com/overlay_image.webp",
+    image: "/overlay_image.webp",
   },
   learningJourney: {
     title: "A full academic journey, ages 3 to 18",
@@ -417,7 +417,7 @@ export const aboutPage = {
     ],
   },
   founder: {
-    image: "https://www.improvemeinstitute.com/Neeta%20Daswani%20professional.jpeg",
+    image: "/neeta-daswani.webp",
     quote:
       "For over thirty years, I have dedicated my career to helping students learn better and achieve outstanding results. Improve ME Institute was built on the same promise: raise standards, build future-ready skills, and support every child to thrive in the real world.",
     paragraphs: [

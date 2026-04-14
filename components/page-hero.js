@@ -41,7 +41,7 @@ export function PageHero({ eyebrow, title, copy, breadcrumbs = [], backgroundIma
         <h1 className="max-w-4xl font-display text-4xl font-bold leading-tight tracking-[-0.05em] text-white md:text-5xl">
           {title}
         </h1>
-        {copy ? <p className="mt-4 max-w-2xl text-lg text-white/80">{copy}</p> : null}
+        {copy ? <p className="mt-4 max-w-2xl text-base leading-7 text-white/80">{copy}</p> : null}
       </div>
     </section>
   );
