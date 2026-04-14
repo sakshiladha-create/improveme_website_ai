@@ -98,6 +98,17 @@ export default function HomePage() {
         <div className="section-container relative z-20 flex min-h-[66vh] flex-col lg:flex-row lg:items-stretch">
           <div className="flex flex-1 flex-col justify-center pb-8 pt-8 lg:pr-8">
             <div className="glass-panel max-w-155 rounded-[22px] p-8 md:p-10">
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-3 rounded-full border border-white/12 bg-white/10 px-4 py-2 text-sm text-white/92 transition-colors hover:bg-white/14"
+              >
+                <span className="flex text-yellow-400">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <Star key={index} className="h-4 w-4 fill-current" />
+                  ))}
+                </span>
+                <span className="font-semibold text-white">4.9 Google rating from Dubai families</span>
+              </Link>
               <h1 className="max-w-4xl font-display text-5xl font-bold leading-[1.02] tracking-[-0.06em] text-white md:text-[3rem]">
                 Dubai Tutors for Primary, GCSE, IGCSE, A-Level and IB Students
               </h1>
@@ -123,8 +134,8 @@ export default function HomePage() {
                   </div>
                 ))}
               </div> */}
-              <div className="mt-7 max-w-96.25 bg-white px-4 py-3 shadow-xl">
-                <p className="mb-0 text-[1.05rem] font-semibold text-navy-900">KHDA-approved ? Small groups of up to six students</p>
+              <div className="mt-7 bg-white px-4 py-3 shadow-xl">
+                <p className="mb-0 text-[1.05rem] font-semibold text-navy-900">KHDA-approved - Small groups of up to six students</p>
                 <p className="mb-0 text-sm leading-6 text-[#365080]">One consistent approach from age 3 to 18 with clear academic pathways.</p>
               </div>
             </div>
