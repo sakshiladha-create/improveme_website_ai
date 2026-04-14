@@ -123,7 +123,7 @@ export function buildOrganizationSchema() {
 export function buildLocalBusinessSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
+    "@type": "LocalBusiness",
     name: siteName,
     url: siteUrl,
     image: absoluteUrl("/overlay_image.webp"),

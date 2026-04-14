@@ -5,12 +5,13 @@ import { courses, faqItems, homePage, topSchools } from "@/data/site-data";
 import {
   buildBreadcrumbSchema,
   buildFaqSchema,
-  buildLocalBusinessSchema,
   buildPageMetadata,
 } from "@/data/seo";
 import { ApproachRow, SubjectGradientCard, TestimonialCard, WhiteFeatureCard } from "@/components/cards";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { PrimaryButton, SectionHeading, TextLink } from "@/components/ui";
+
+const googleReviewsHref = "https://www.google.com/search?q=Improve+ME+Institute+Dubai+reviews";
 
 const primaryCards = homePage.learningJourney.primary.cards
   .map((slug) => courses.find((course) => course.slug === slug))
@@ -23,7 +24,7 @@ const enrichmentCards = homePage.enrichment.cards
   .filter(Boolean);
 
 const heroCopy =
-  "From Primary through GCSE, IGCSE, A-Level, IB Diploma, MYP, and international curricula, we support students aged 3 to 18 at every stage of their education. Since 2010, we have helped 1,000+ students from 30+ Dubai schools achieve stronger results.";
+  "we help students aged 3 to 18 build confidence, stronger results, and consistent progress from first assessment to final exams.";
 
 const heroImages = {
   background:
@@ -66,14 +67,9 @@ export const metadata = buildPageMetadata({
 export default function HomePage() {
   const breadcrumbSchema = buildBreadcrumbSchema([{ label: "Home", href: "/" }]);
   const faqSchema = buildFaqSchema(homeFaqItems);
-  const localBusinessSchema = buildLocalBusinessSchema();
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
@@ -99,7 +95,9 @@ export default function HomePage() {
           <div className="flex flex-1 flex-col justify-center pb-8 pt-8 lg:pr-8">
             <div className="glass-panel max-w-155 rounded-[22px] p-8 md:p-10">
               <Link
-                href="/about"
+                href={googleReviewsHref}
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center gap-3 rounded-full border border-white/12 bg-white/10 px-4 py-2 text-sm text-white/92 transition-colors hover:bg-white/14"
               >
                 <span className="flex text-yellow-400">
@@ -127,13 +125,13 @@ export default function HomePage() {
                   {homePage.hero.ctaSecondary}
                 </Link>
               </div>
-              {/* <div className="mt-7 grid gap-3 text-sm text-white/90 sm:grid-cols-3">
+              <div className="mt-7 grid gap-3 text-sm text-white/90 sm:grid-cols-3">
                 {["Free assessment", "Response within two hours", "Small groups of 3-6"].map((item) => (
                   <div key={item} className="rounded-2xl border border-white/15 bg-white/8 px-4 py-3">
                     <span className="font-semibold">{item}</span>
                   </div>
                 ))}
-              </div> */}
+              </div>
               <div className="mt-7 bg-white px-4 py-3 shadow-xl">
                 <p className="mb-0 text-[1.05rem] font-semibold text-navy-900">KHDA-approved - Small groups of up to six students</p>
                 <p className="mb-0 text-sm leading-6 text-[#365080]">One consistent approach from age 3 to 18 with clear academic pathways.</p>
@@ -364,7 +362,14 @@ export default function HomePage() {
             ))}
           </div>
           <div className="mt-8 text-center">
-            <TextLink href="/about" className="justify-center">See all our Google reviews</TextLink>
+            <Link
+              href={googleReviewsHref}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center gap-2 font-medium text-navy-900 transition-colors hover:text-yellow-500"
+            >
+              <span>See all our Google reviews</span>
+            </Link>
           </div>
         </div>
       </section>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { aboutPage } from "@/data/site-data";
-import { buildBreadcrumbSchema, buildLocalBusinessSchema, buildPageMetadata } from "@/data/seo";
+import { buildBreadcrumbSchema, buildPageMetadata } from "@/data/seo";
 import { PageHero } from "@/components/page-hero";
 import { PrimaryButton } from "@/components/ui";
 
@@ -44,14 +44,8 @@ export default function AboutPage() {
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
   ]);
-  const localBusinessSchema = buildLocalBusinessSchema();
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}

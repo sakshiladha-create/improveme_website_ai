@@ -1,6 +1,6 @@
 import { Clock3, Mail, MapPin, PhoneCall } from "lucide-react";
 import { contactDetails } from "@/data/site-data";
-import { buildBreadcrumbSchema, buildLocalBusinessSchema, buildPageMetadata } from "@/data/seo";
+import { buildBreadcrumbSchema, buildPageMetadata } from "@/data/seo";
 import { ContactMethod } from "@/components/cards";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { PageHero } from "@/components/page-hero";
@@ -50,14 +50,8 @@ export default function ContactPage() {
     { label: "Home", href: "/" },
     { label: "Contact", href: "/contact" },
   ]);
-  const localBusinessSchema = buildLocalBusinessSchema();
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
@@ -151,7 +145,7 @@ export default function ContactPage() {
               </a>
             </div>
             <p className="mt-4 text-sm leading-7 text-slate-600">
-              Tip: When you arrive at Gold &amp; Diamond Park, head to Building 3 and ask for Suites 3016–3017.
+              Tip: When you arrive at Gold &amp; Diamond Park, head to Building 3 and ask for Suites 3016-3017.
             </p>
           </div>
 
