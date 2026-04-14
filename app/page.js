@@ -98,10 +98,7 @@ export default function HomePage() {
         <div className="section-container relative z-20 flex min-h-[66vh] flex-col lg:flex-row lg:items-stretch">
           <div className="flex flex-1 flex-col justify-center pb-8 pt-8 lg:pr-8">
             <div className="glass-panel max-w-155 rounded-[22px] p-8 md:p-10">
-              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-yellow-400">
-                KHDA-Approved Tutoring Centre in Dubai
-              </p>
-              <h1 className="max-w-4xl font-display text-5xl font-bold leading-[1.02] tracking-[-0.06em] text-white md:text-[4rem]">
+              <h1 className="max-w-4xl font-display text-5xl font-bold leading-[1.02] tracking-[-0.06em] text-white md:text-[3rem]">
                 Dubai Tutors for Primary, GCSE, IGCSE, A-Level and IB Students
               </h1>
               <p className="mt-6 max-w-xl text-base leading-8 text-white/90">
@@ -119,13 +116,13 @@ export default function HomePage() {
                   {homePage.hero.ctaSecondary}
                 </Link>
               </div>
-              <div className="mt-7 grid gap-3 text-sm text-white/90 sm:grid-cols-3">
+              {/* <div className="mt-7 grid gap-3 text-sm text-white/90 sm:grid-cols-3">
                 {["Free assessment", "Response within two hours", "Small groups of 3-6"].map((item) => (
                   <div key={item} className="rounded-2xl border border-white/15 bg-white/8 px-4 py-3">
                     <span className="font-semibold">{item}</span>
                   </div>
                 ))}
-              </div>
+              </div> */}
               <div className="mt-7 max-w-96.25 bg-white px-4 py-3 shadow-xl">
                 <p className="mb-0 text-[1.05rem] font-semibold text-navy-900">KHDA-approved ? Small groups of up to six students</p>
                 <p className="mb-0 text-sm leading-6 text-[#365080]">One consistent approach from age 3 to 18 with clear academic pathways.</p>
@@ -134,7 +131,7 @@ export default function HomePage() {
           </div>
 
           <div className="relative z-20 hidden flex-1 items-stretch justify-center py-8 lg:flex">
-            <div className="hero-right-card relative h-full w-105 overflow-hidden rounded-[22px] border border-white/10 bg-white/6 shadow-[0_26px_70px_rgba(0,0,0,0.28)]">
+            <div className="hero-right-card relative h-full w-xl overflow-hidden rounded-[22px] border border-white/10 bg-white/6 shadow-[0_26px_70px_rgba(0,0,0,0.28)]">
               <Image
                 src={heroImages.side}
                 alt="Dubai tutoring classroom environment"
