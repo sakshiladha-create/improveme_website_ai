@@ -5,48 +5,9 @@ import { PageHero } from "@/components/page-hero";
 import { buildPageMetadata } from "@/data/seo";
 import { encodeBlogSlug, fetchBlogBySlug, formatBlogDate, getBlogCoverImage, richTextToPlainText } from "@/lib/strapi";
 
-function renderContent(block, index) {
-  if (block.type === "paragraph") {
-    return (
-      <p key={index} className="text-base leading-8 text-slate-700">
-        {block.children?.map((child, childIndex) => child.text || "").join("") || block.text}
-      </p>
-    );
-  }
-
-  if (block.type === "heading") {
-    return (
-      <h2 key={index} className="mt-12 text-2xl font-semibold tracking-[-0.03em] text-navy-900">
-        {block.children?.map((child) => child.text || "").join("") || block.text}
-      </h2>
-    );
-  }
-
-  if (block.type === "list") {
-    return (
-      <ul key={index} className="ml-5 list-disc space-y-3 text-base leading-8 text-slate-700">
-        {block.children?.map((child, childIndex) => (
-          <li key={childIndex}>{child.children?.map(c => c.text || "").join("")}</li>
-        )) || block.items?.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-    );
-  }
-
-  if (block.type === "blockquote") {
-    return (
-      <blockquote key={index} className="rounded-3xl border-l-4 border-yellow-400 bg-slate-50 p-6 text-slate-700">
-        <p className="text-lg italic leading-8">{block.children?.map((child) => child.text || "").join("") || block.text}</p>
-      </blockquote>
-    );
-  }
-
-  return null;
-}
-
 export async function generateMetadata({ params }) {
-  const post = await fetchBlogBySlug(params?.slug);
+  const { slug } = await params;
+  const post = await fetchBlogBySlug(slug);
   if (!post) return {};
 
   const title = post.Heading || "Blog";
@@ -61,7 +22,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function BlogPostPage({ params }) {
-  const post = await fetchBlogBySlug(params?.slug);
+  const { slug } = await params;
+  const post = await fetchBlogBySlug(slug);
   if (!post) return notFound();
 
   const excerpt = richTextToPlainText(post.Description).slice(0, 220);
@@ -111,7 +73,48 @@ export default async function BlogPostPage({ params }) {
             </div>
 
             <div className="space-y-8">
-              {(post.Description || []).map((block, index) => renderContent(block, index))}
+              {(post.Description || []).map((block, index) => {
+                if (block.type === "paragraph") {
+                  return (
+                    <p key={index} className="text-base leading-8 text-slate-700">
+                      {block.children?.map((child) => child.text || "").join("") || block.text}
+                    </p>
+                  );
+                }
+
+                if (block.type === "heading") {
+                  return (
+                    <h2 key={index} className="mt-12 text-2xl font-semibold tracking-[-0.03em] text-navy-900">
+                      {block.children?.map((child) => child.text || "").join("") || block.text}
+                    </h2>
+                  );
+                }
+
+                if (block.type === "list") {
+                  return (
+                    <ul key={index} className="ml-5 list-disc space-y-3 text-base leading-8 text-slate-700">
+                      {block.children?.map((child, childIndex) => (
+                        <li key={childIndex}>{child.children?.map((c) => c.text || "").join("")}</li>
+                      )) || null}
+                    </ul>
+                  );
+                }
+
+                if (block.type === "blockquote") {
+                  return (
+                    <blockquote
+                      key={index}
+                      className="rounded-3xl border-l-4 border-yellow-400 bg-slate-50 p-6 text-slate-700"
+                    >
+                      <p className="text-lg italic leading-8">
+                        {block.children?.map((child) => child.text || "").join("") || block.text}
+                      </p>
+                    </blockquote>
+                  );
+                }
+
+                return null;
+              })}
             </div>
 
             <div className="rounded-3xl bg-slate-100 p-8">

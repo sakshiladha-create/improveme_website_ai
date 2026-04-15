@@ -1,5 +1,5 @@
 import { DM_Sans, Inter, Plus_Jakarta_Sans } from "next/font/google";
-import "@/app/globals.css";
+import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { buildLocalBusinessSchema, buildOrganizationSchema, buildPageMetadata, seoDefaults } from "@/data/seo";

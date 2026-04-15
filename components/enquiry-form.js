@@ -4,6 +4,19 @@ import { useMemo, useState } from "react";
 
 const heardFromOptions = ["Google Search", "Instagram", "Facebook", "School", "Friend / Family", "Other"];
 
+function getSubmissionErrorMessage(code) {
+  switch (code) {
+    case "EMAIL_NOT_CONFIGURED":
+      return "Email sending is not configured yet. Add your Outlook SMTP email and password in .env.local, then restart the server.";
+    case "INVALID_EMAIL":
+      return "Please enter a valid email address.";
+    case "MISSING_FIELDS":
+      return "Please complete the required fields.";
+    default:
+      return "Something went wrong. Please call us or try again in a moment.";
+  }
+}
+
 export function EnquiryForm() {
   const startedAt = useMemo(() => Date.now(), []);
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
@@ -19,7 +32,6 @@ export function EnquiryForm() {
     email: "",
     heardFrom: "",
     message: "",
-    // honeypot field (must remain empty)
     website: "",
   });
 
@@ -69,7 +81,7 @@ export function EnquiryForm() {
       setStatus("success");
     } catch (err) {
       setStatus("error");
-      setError("Something went wrong. Please call us or try again in a moment.");
+      setError(getSubmissionErrorMessage(err?.message));
     }
   }
 
@@ -90,9 +102,9 @@ export function EnquiryForm() {
 
       {status === "success" ? (
         <div className="space-y-4 px-8 py-8 text-center">
-          <p className="mb-0 text-[1.2rem] font-bold text-navy-900">Thanks — we’ve received your enquiry.</p>
+          <p className="mb-0 text-[1.2rem] font-bold text-navy-900">Thanks, we&apos;ve received your enquiry.</p>
           <p className="mb-0 text-sm leading-7 text-slate-600">
-            Our team aims to reply within two working hours. If it’s urgent, call the centre on{" "}
+            Our team aims to reply within two working hours. If it&apos;s urgent, call the centre on{" "}
             <a className="font-semibold text-navy-900 underline" href="tel:+97143805525">
               +971 4 380 5525
             </a>

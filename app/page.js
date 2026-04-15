@@ -10,6 +10,13 @@ import {
 import { ApproachRow, SubjectGradientCard, TestimonialCard, WhiteFeatureCard } from "@/components/cards";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { PrimaryButton, SectionHeading, TextLink } from "@/components/ui";
+import {
+  encodeBlogSlug,
+  fetchBlogs,
+  formatBlogDate,
+  getBlogCoverImage,
+  richTextToPlainText,
+} from "@/lib/strapi";
 
 const googleReviewsHref = "https://www.google.com/search?q=Improve+ME+Institute+Dubai+reviews";
 
@@ -50,6 +57,11 @@ const conversionPoints = [
 
 const homeFaqItems = faqItems.slice(0, 4);
 
+function truncateText(value, length) {
+  if (!value) return "";
+  return value.length > length ? `${value.slice(0, length)}...` : value;
+}
+
 export const metadata = buildPageMetadata({
   title: "Tutoring Centre in Dubai for Primary, GCSE, IGCSE, A-Level and IB",
   description:
@@ -64,9 +76,18 @@ export const metadata = buildPageMetadata({
   ],
 });
 
-export default function HomePage() {
+export default async function HomePage() {
   const breadcrumbSchema = buildBreadcrumbSchema([{ label: "Home", href: "/" }]);
   const faqSchema = buildFaqSchema(homeFaqItems);
+  let latestBlogs = [];
+  try {
+    latestBlogs = (await fetchBlogs()).slice(0, 4);
+  } catch {
+    latestBlogs = [];
+  }
+
+  const featuredBlog = latestBlogs[0];
+  const sideBlogs = latestBlogs.slice(1, 4);
 
   return (
     <>
@@ -341,6 +362,118 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {featuredBlog ? (
+        <section className="bg-[linear-gradient(180deg,#FFFCF8_0%,#FFFFFF_100%)] py-20">
+          <div className="section-container">
+            <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-[#B66A2A]">Recent Blog Posts</p>
+                <h2 className="max-w-3xl font-display text-[2.45rem] font-bold leading-tight tracking-[-0.05em] text-[#231815]">
+                  Parent guidance and student stories from the Improve ME journal
+                </h2>
+              </div>
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-[#8A5A3B] transition hover:text-navy-900"
+              >
+                View all posts
+              </Link>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-[1.42fr_0.92fr]">
+              <article className="overflow-hidden rounded-[30px] border border-[#E8D9CB] bg-[#FCF8F3] shadow-[0_24px_60px_rgba(124,74,37,0.08)]">
+                <Link href={`/blog/${encodeBlogSlug(featuredBlog.slug)}`} className="block">
+                  <div className="relative  overflow-hidden bg-[#EADFD2]">
+                    {getBlogCoverImage(featuredBlog) ? (
+                      <Image
+                        src={getBlogCoverImage(featuredBlog)}
+                        alt={featuredBlog.Heading || "Featured blog cover"}
+                        fill
+                        sizes="(min-width: 1024px) 56vw, 100vw"
+                        className="object-cover transition duration-500 hover:scale-[1.02]"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,#A45A33,#E8C8A6)] text-6xl font-bold text-white">
+                        {(featuredBlog.Heading || "B").slice(0, 1)}
+                      </div>
+                    )}
+                  </div>
+                </Link>
+
+                <div className="space-y-4 p-6 md:p-8">
+                  <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#8A5A3B]">
+                    <span>Featured story</span>
+                    {formatBlogDate(featuredBlog) ? <span>{formatBlogDate(featuredBlog)}</span> : null}
+                  </div>
+                  <h3 className="max-w-2xl font-display text-[2rem] font-bold leading-tight tracking-[-0.04em] text-[#231815]">
+                    <Link href={`/blog/${encodeBlogSlug(featuredBlog.slug)}`} className="transition hover:text-[#8A5A3B]">
+                      {featuredBlog.Heading}
+                    </Link>
+                  </h3>
+                  <p className="max-w-2xl text-[1rem] leading-8 text-[#5E5148]">
+                    {truncateText(richTextToPlainText(featuredBlog.Description), 180)}
+                  </p>
+                  <Link
+                    href={`/blog/${encodeBlogSlug(featuredBlog.slug)}`}
+                    className="inline-flex items-center rounded-full border border-[#D8B798] px-5 py-3 text-sm font-semibold text-[#513528] transition hover:bg-[#F4E8DB]"
+                  >
+                    Read article
+                  </Link>
+                </div>
+              </article>
+
+              <div className="space-y-4">
+                {sideBlogs.map((post) => {
+                  const href = `/blog/${encodeBlogSlug(post.slug)}`;
+                  const imageUrl = getBlogCoverImage(post);
+                  const excerpt = truncateText(richTextToPlainText(post.Description), 88);
+
+                  return (
+                    <article
+                      key={post.id || href}
+                      className="group rounded-[24px] border border-[#EEE7DE] bg-white p-3 shadow-[0_18px_40px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_48px_rgba(15,23,42,0.1)]"
+                    >
+                      <div className="grid gap-4 sm:grid-cols-[132px_1fr] sm:items-center">
+                        <Link href={href} className="relative block aspect-[4/3] overflow-hidden rounded-[18px] bg-[#F2E7DA]">
+                          {imageUrl ? (
+                            <Image
+                              src={imageUrl}
+                              alt={post.Heading || "Blog cover"}
+                              fill
+                              sizes="132px"
+                              className="object-cover transition duration-500 group-hover:scale-[1.04]"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,#A45A33,#E8C8A6)] text-3xl font-bold text-white">
+                              {(post.Heading || "B").slice(0, 1)}
+                            </div>
+                          )}
+                        </Link>
+
+                        <div className="min-w-0">
+                          <div className="mb-2 flex flex-wrap items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[#A16A43]">
+                            <span>Blog</span>
+                            {formatBlogDate(post) ? <span>{formatBlogDate(post)}</span> : null}
+                          </div>
+                          <h3 className="text-[1.05rem] font-bold leading-6 tracking-[-0.03em] text-navy-900">
+                            <Link href={href} className="transition group-hover:text-[#8A5A3B]">
+                              {post.Heading}
+                            </Link>
+                          </h3>
+                          {excerpt ? (
+                            <p className="mt-2 text-sm leading-6 text-slate-600">{excerpt}</p>
+                          ) : null}
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="bg-[#EEF2FF] py-20">
         <div className="section-container">
