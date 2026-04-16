@@ -1,6 +1,6 @@
 import "server-only";
 
-const STRAPI_BASE_URL = "https://best-excitement-b109c761d6.strapiapp.com";
+const STRAPI_BASE_URL = (process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337").replace(/\/+$/, "");
 
 function stripLeadingSlash(value) {
   if (typeof value !== "string") return "";
@@ -83,34 +83,45 @@ export function getBlogCoverImage(post) {
   return fromStrapi;
 }
 
-export async function fetchBlogs() {
-  // Strapi uses `Image` as the media field name in this project.
-  const res = await fetch(`${STRAPI_BASE_URL}/api/blogs?populate=Image`, {
+async function strapiFetch(pathnameAndQuery, init) {
+  const url = `${STRAPI_BASE_URL}${pathnameAndQuery.startsWith("/") ? "" : "/"}${pathnameAndQuery}`;
+  const res = await fetch(url, {
+    ...init,
     next: { revalidate: 300 },
   });
-  if (!res.ok) throw new Error("Failed to fetch blogs");
-  const json = await res.json();
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`Strapi request failed (${res.status}): ${text || url}`);
+  }
+  return await res.json();
+}
+
+export async function getBlogs() {
+  const json = await strapiFetch("/api/blogs?populate=*", undefined);
   return Array.isArray(json?.data) ? json.data : [];
 }
 
-export async function fetchBlogBySlug(rawSlug) {
+export async function getBlogBySlug(rawSlug) {
   const slug = stripLeadingSlash(decodeURIComponent(rawSlug || ""));
 
   // Try filtered query first (more efficient).
-  const filterUrl = `${STRAPI_BASE_URL}/api/blogs?populate=Image&filters[slug][$eq]=${encodeURIComponent(slug)}`;
-  const filtered = await fetch(filterUrl, { next: { revalidate: 300 } });
-  if (filtered.ok) {
-    const json = await filtered.json();
-    const hit = Array.isArray(json?.data) ? json.data[0] : null;
-    if (hit) return hit;
-  }
+  const filteredJson = await strapiFetch(
+    `/api/blogs?populate=*&filters[slug][$eq]=${encodeURIComponent(slug)}`,
+    undefined
+  ).catch(() => null);
+  const hit = Array.isArray(filteredJson?.data) ? filteredJson.data[0] : null;
+  if (hit) return hit;
 
   // Fallback: fetch all and match.
-  const all = await fetchBlogs();
+  const all = await getBlogs();
   return (
     all.find((p) => stripLeadingSlash(p?.slug) === slug) ||
     all.find((p) => encodeBlogSlug(p?.slug) === encodeURIComponent(slug)) ||
     null
   );
 }
+
+// Backwards-compatible exports (older pages/components may still import these).
+export const fetchBlogs = getBlogs;
+export const fetchBlogBySlug = getBlogBySlug;
 
