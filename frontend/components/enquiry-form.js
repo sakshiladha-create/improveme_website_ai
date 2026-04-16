@@ -104,7 +104,8 @@ export function EnquiryForm() {
         <div className="space-y-4 px-8 py-8 text-center">
           <p className="mb-0 text-[1.2rem] font-bold text-navy-900">Thanks, we&apos;ve received your enquiry.</p>
           <p className="mb-0 text-sm leading-7 text-slate-600">
-            Our team aims to reply within two working hours. If it&apos;s urgent, call the centre on{" "}
+            A confirmation email is on its way to your inbox, and our team aims to reply within two working hours. If it&apos;s urgent,
+            call the centre on{" "}
             <a className="font-semibold text-navy-900 underline" href="tel:+97143805525">
               +971 4 380 5525
             </a>

@@ -82,6 +82,63 @@ function buildEmailText(payload, timeOnPageMs) {
   ].join("\n");
 }
 
+function buildThankYouEmailHtml(payload) {
+  const parentName = [payload.parentFirstName, payload.parentLastName].filter(Boolean).join(" ");
+  const studentName = [payload.studentFirstName, payload.studentLastName].filter(Boolean).join(" ");
+
+  return `
+    <div style="font-family:Arial,sans-serif;color:#0f172a;line-height:1.6;">
+      <h2 style="margin:0 0 16px;">Thank you for contacting Improve ME Institute</h2>
+      <p style="margin:0 0 12px;">Hi ${parentName || "there"},</p>
+      <p style="margin:0 0 12px;">
+        Thank you for submitting your enquiry for ${studentName || "your child"}. We have received your request and a member of our team
+        will get back to you within two working hours.
+      </p>
+      <p style="margin:0 0 12px;">
+        If your enquiry is urgent, you can also call us on <a href="tel:+97143805525">+971 4 380 5525</a>.
+      </p>
+      <div style="margin:20px 0;padding:12px 16px;border:1px solid #e5e7eb;background:#f8fafc;border-radius:12px;">
+        <strong style="display:block;margin-bottom:8px;">Summary of your enquiry</strong>
+        <div><strong>Student:</strong> ${studentName || "-"}</div>
+        <div><strong>Year Group / Grade:</strong> ${payload.yearGroup || "-"}</div>
+        <div><strong>School Name:</strong> ${payload.schoolName || "-"}</div>
+        <div><strong>Phone Number:</strong> ${payload.phone || "-"}</div>
+        <div><strong>Email:</strong> ${payload.email || "-"}</div>
+        <div><strong>Support needed:</strong> ${payload.message || "-"}</div>
+      </div>
+      <p style="margin:0;">
+        Best regards,<br />
+        Improve ME Institute
+      </p>
+    </div>
+  `;
+}
+
+function buildThankYouEmailText(payload) {
+  const parentName = [payload.parentFirstName, payload.parentLastName].filter(Boolean).join(" ");
+  const studentName = [payload.studentFirstName, payload.studentLastName].filter(Boolean).join(" ");
+
+  return [
+    `Hi ${parentName || "there"},`,
+    "",
+    `Thank you for submitting your enquiry for ${studentName || "your child"}.`,
+    "We have received your request and a member of our team will get back to you within two working hours.",
+    "",
+    "If your enquiry is urgent, you can also call us on +971 4 380 5525.",
+    "",
+    "Summary of your enquiry:",
+    `Student: ${studentName || "-"}`,
+    `Year Group / Grade: ${payload.yearGroup || "-"}`,
+    `School Name: ${payload.schoolName || "-"}`,
+    `Phone Number: ${payload.phone || "-"}`,
+    `Email: ${payload.email || "-"}`,
+    `Support needed: ${payload.message || "-"}`,
+    "",
+    "Best regards,",
+    "Improve ME Institute",
+  ].join("\n");
+}
+
 export async function POST(request) {
   try {
     const contentType = request.headers.get("content-type") || "";
@@ -140,6 +197,15 @@ export async function POST(request) {
       subject: `New website enquiry from ${payload.parentFirstName} ${payload.parentLastName || ""}`.trim(),
       text: buildEmailText(payload, timeOnPageMs),
       html: buildEmailHtml(payload, timeOnPageMs),
+    });
+
+    await transporter.sendMail({
+      from: fromAddress,
+      to: payload.email,
+      replyTo: inboxAddress,
+      subject: "Thank you for contacting Improve ME Institute",
+      text: buildThankYouEmailText(payload),
+      html: buildThankYouEmailHtml(payload),
     });
 
     return Response.json({ ok: true }, { status: 200 });
