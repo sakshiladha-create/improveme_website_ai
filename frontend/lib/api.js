@@ -1,19 +1,10 @@
-export const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+import { blogs } from "@/lib/staticBlogs";
 
 export async function getBlogs() {
-  const res = await fetch(`${API_URL}/api/blogs?populate=*`, {
-    cache: "no-store",
-  });
-  const data = await res.json();
-  return data.data;
+  return blogs;
 }
 
 export async function getBlog(slug) {
-  const res = await fetch(
-    `${API_URL}/api/blogs?filters[slug][$eq]=${slug}&populate=*`,
-    { cache: "no-store" }
-  );
-  const data = await res.json();
-  return data.data[0];
+  return blogs.find((b) => b.slug === slug) || null;
 }
 

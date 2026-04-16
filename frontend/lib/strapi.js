@@ -1,7 +1,5 @@
 import "server-only";
 
-const STRAPI_BASE_URL = (process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337").replace(/\/+$/, "");
-
 function stripLeadingSlash(value) {
   if (typeof value !== "string") return "";
   return value.replace(/^\/+/, "");
@@ -66,7 +64,7 @@ function pickCoverImageFromStrapi(post) {
     post?.image?.data?.attributes?.url ||
     post?.cover?.data?.attributes?.url ||
     post?.thumbnail?.data?.attributes?.url;
-  if (nested) return nested.startsWith("http") ? nested : `${STRAPI_BASE_URL}${nested}`;
+  if (nested) return nested;
 
   return null;
 }
