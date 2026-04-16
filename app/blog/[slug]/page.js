@@ -3,17 +3,12 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/page-hero";
 import { buildPageMetadata } from "@/data/seo";
-import { getBlog } from "@/lib/api";
-import { encodeBlogSlug, formatBlogDate, getBlogCoverImage, richTextToPlainText } from "@/lib/strapi";
+import { getBlog } from "@/lib/blogs";
+import { encodeBlogSlug, formatBlogDate, getBlogCoverImage, richTextToPlainText } from "@/lib/blog-utils";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  let post = null;
-  try {
-    post = await getBlog(slug);
-  } catch {
-    post = null;
-  }
+  const post = getBlog(slug);
   if (!post) return {};
 
   const title = post.Heading || "Blog";
@@ -29,12 +24,7 @@ export async function generateMetadata({ params }) {
 
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
-  let post = null;
-  try {
-    post = await getBlog(slug);
-  } catch {
-    post = null;
-  }
+  const post = getBlog(slug);
   if (!post) return notFound();
 
   const excerpt = richTextToPlainText(post.Description).slice(0, 220);

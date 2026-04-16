@@ -2,8 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { PageHero } from "@/components/page-hero";
 import { buildPageMetadata } from "@/data/seo";
-import { getBlogs } from "@/lib/api";
-import { encodeBlogSlug, formatBlogDate, getBlogCoverImage, richTextToPlainText } from "@/lib/strapi";
+import { getBlogs } from "@/lib/blogs";
+import { encodeBlogSlug, formatBlogDate, getBlogCoverImage, richTextToPlainText } from "@/lib/blog-utils";
 
 export const metadata = buildPageMetadata({
   title: "Blog",
@@ -55,13 +55,8 @@ function BlogCard({ post }) {
   );
 }
 
-export default async function BlogPage() {
-  let blogPosts = [];
-  try {
-    blogPosts = await getBlogs();
-  } catch {
-    blogPosts = [];
-  }
+export default function BlogPage() {
+  const blogPosts = getBlogs();
   const featured = blogPosts[0];
   const secondaryPosts = blogPosts.slice(1, 5);
 

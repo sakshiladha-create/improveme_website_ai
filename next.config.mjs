@@ -14,14 +14,6 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.pexels.com",
       },
-      {
-        protocol: "https",
-        hostname: "best-excitement-b109c761d6.strapiapp.com",
-      },
-      {
-        protocol: "https",
-        hostname: "best-excitement-b109c761d6.media.strapiapp.com",
-      },
     ],
   },
 };

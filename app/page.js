@@ -15,8 +15,8 @@ import {
   formatBlogDate,
   getBlogCoverImage,
   richTextToPlainText,
-} from "@/lib/strapi";
-import { getBlogs } from "@/lib/api";
+} from "@/lib/blog-utils";
+import { getBlogs } from "@/lib/blogs";
 
 const googleReviewsHref = "https://www.google.com/search?q=Improve+ME+Institute+Dubai+reviews";
 
@@ -76,15 +76,10 @@ export const metadata = buildPageMetadata({
   ],
 });
 
-export default async function HomePage() {
+export default function HomePage() {
   const breadcrumbSchema = buildBreadcrumbSchema([{ label: "Home", href: "/" }]);
   const faqSchema = buildFaqSchema(homeFaqItems);
-  let latestBlogs = [];
-  try {
-    latestBlogs = (await getBlogs()).slice(0, 4);
-  } catch {
-    latestBlogs = [];
-  }
+  const latestBlogs = getBlogs().slice(0, 4);
 
   const featuredBlog = latestBlogs[0];
   const sideBlogs = latestBlogs.slice(1, 4);
