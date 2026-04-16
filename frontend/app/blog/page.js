@@ -2,7 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { PageHero } from "@/components/page-hero";
 import { buildPageMetadata } from "@/data/seo";
-import { encodeBlogSlug, fetchBlogs, formatBlogDate, getBlogCoverImage, richTextToPlainText } from "@/lib/strapi";
+import { getBlogs } from "@/lib/api";
+import { encodeBlogSlug, formatBlogDate, getBlogCoverImage, richTextToPlainText } from "@/lib/strapi";
 
 export const metadata = buildPageMetadata({
   title: "Blog",
@@ -57,7 +58,7 @@ function BlogCard({ post }) {
 export default async function BlogPage() {
   let blogPosts = [];
   try {
-    blogPosts = await fetchBlogs();
+    blogPosts = await getBlogs();
   } catch {
     blogPosts = [];
   }

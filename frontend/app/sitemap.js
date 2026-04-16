@@ -1,6 +1,7 @@
 import { courses } from "@/data/site-data";
 import { absoluteUrl } from "@/data/seo";
-import { fetchBlogs, encodeBlogSlug } from "@/lib/strapi";
+import { encodeBlogSlug } from "@/lib/strapi";
+import { getBlogs } from "@/lib/api";
 
 const staticRoutes = [
   "/",
@@ -34,7 +35,7 @@ export default async function sitemap() {
 
   let blogEntries = [];
   try {
-    const posts = await fetchBlogs();
+    const posts = await getBlogs();
     blogEntries = posts.map((post) => ({
       url: absoluteUrl(`/blog/${encodeBlogSlug(post.slug)}`),
       lastModified: post?.updatedAt ? new Date(post.updatedAt) : new Date(),

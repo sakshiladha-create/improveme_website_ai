@@ -12,11 +12,11 @@ import { EnquiryForm } from "@/components/enquiry-form";
 import { PrimaryButton, SectionHeading, TextLink } from "@/components/ui";
 import {
   encodeBlogSlug,
-  fetchBlogs,
   formatBlogDate,
   getBlogCoverImage,
   richTextToPlainText,
 } from "@/lib/strapi";
+import { getBlogs } from "@/lib/api";
 
 const googleReviewsHref = "https://www.google.com/search?q=Improve+ME+Institute+Dubai+reviews";
 
@@ -81,7 +81,7 @@ export default async function HomePage() {
   const faqSchema = buildFaqSchema(homeFaqItems);
   let latestBlogs = [];
   try {
-    latestBlogs = (await fetchBlogs()).slice(0, 4);
+    latestBlogs = (await getBlogs()).slice(0, 4);
   } catch {
     latestBlogs = [];
   }
