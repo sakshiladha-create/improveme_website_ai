@@ -3,15 +3,32 @@
 import { useMemo, useState } from "react";
 
 const heardFromOptions = ["Google Search", "Instagram", "Facebook", "School", "Friend / Family", "Other"];
+const initialValues = {
+  studentFirstName: "",
+  studentLastName: "",
+  yearGroup: "",
+  schoolName: "",
+  parentFirstName: "",
+  parentLastName: "",
+  phone: "",
+  email: "",
+  heardFrom: "",
+  message: "",
+  website: "",
+};
 
 function getSubmissionErrorMessage(code) {
   switch (code) {
     case "EMAIL_NOT_CONFIGURED":
-      return "Email sending is not configured yet. Add your Outlook SMTP email and password in .env.local, then restart the server.";
+      return "Email sending is not configured yet. Add your Outlook SMTP email settings and redeploy.";
     case "INVALID_EMAIL":
       return "Please enter a valid email address.";
     case "MISSING_FIELDS":
       return "Please complete the required fields.";
+    case "GOOGLE_SHEETS_NOT_CONFIGURED":
+      return "The enquiry form is not configured yet. Please add the Google Sheets environment variables and redeploy.";
+    case "GOOGLE_SHEETS_APPEND_FAILED":
+      return "We could not save your enquiry to Google Sheets. Please check the sheet settings and try again.";
     default:
       return "Something went wrong. Please call us or try again in a moment.";
   }
@@ -21,19 +38,7 @@ export function EnquiryForm() {
   const startedAt = useMemo(() => Date.now(), []);
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
   const [error, setError] = useState("");
-  const [values, setValues] = useState({
-    studentFirstName: "",
-    studentLastName: "",
-    yearGroup: "",
-    schoolName: "",
-    parentFirstName: "",
-    parentLastName: "",
-    phone: "",
-    email: "",
-    heardFrom: "",
-    message: "",
-    website: "",
-  });
+  const [values, setValues] = useState(initialValues);
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -56,11 +61,24 @@ export function EnquiryForm() {
     setStatus("submitting");
 
     try {
+      const formData = new FormData(event.currentTarget);
+      const formValues = Object.fromEntries(formData.entries());
+
       const response = await fetch("/api/enquiry", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          ...values,
+          studentFirstName: formValues.studentFirstName || "",
+          studentLastName: formValues.studentLastName || "",
+          yearGroup: formValues.yearGroup || "",
+          schoolName: formValues.schoolName || "",
+          parentFirstName: formValues.parentFirstName || "",
+          parentLastName: formValues.parentLastName || "",
+          phone: formValues.phone || "",
+          email: formValues.email || "",
+          source: formValues.heardFrom || "",
+          supportNeeded: formValues.message || "",
+          website: formValues.website || "",
           timeOnPageMs: Date.now() - startedAt,
         }),
       });
@@ -78,6 +96,7 @@ export function EnquiryForm() {
         });
       }
 
+      setValues(initialValues);
       setStatus("success");
     } catch (err) {
       setStatus("error");
@@ -127,6 +146,7 @@ export function EnquiryForm() {
 
           <div className="grid gap-4 md:grid-cols-2">
             <Field
+              name="studentFirstName"
               label="Student First Name *"
               placeholder="Bruce"
               value={values.studentFirstName}
@@ -134,6 +154,7 @@ export function EnquiryForm() {
               required
             />
             <Field
+              name="studentLastName"
               label="Student Last Name"
               placeholder="Wayne"
               value={values.studentLastName}
@@ -143,12 +164,14 @@ export function EnquiryForm() {
 
           <div className="grid gap-4 md:grid-cols-2">
             <Field
+              name="yearGroup"
               label="Year Group / Grade"
               placeholder="e.g. Year 6"
               value={values.yearGroup}
               onChange={setField("yearGroup")}
             />
             <Field
+              name="schoolName"
               label="School Name"
               placeholder="e.g. Dubai College"
               value={values.schoolName}
@@ -158,6 +181,7 @@ export function EnquiryForm() {
 
           <div className="grid gap-4 md:grid-cols-2">
             <Field
+              name="parentFirstName"
               label="Parent First Name *"
               placeholder="Thomas"
               value={values.parentFirstName}
@@ -165,6 +189,7 @@ export function EnquiryForm() {
               required
             />
             <Field
+              name="parentLastName"
               label="Parent Last Name"
               placeholder="Wayne"
               value={values.parentLastName}
@@ -173,6 +198,7 @@ export function EnquiryForm() {
           </div>
 
           <Field
+            name="phone"
             label="Phone Number *"
             placeholder="+971 551234567"
             value={values.phone}
@@ -181,6 +207,7 @@ export function EnquiryForm() {
             inputMode="tel"
           />
           <Field
+            name="email"
             label="Email *"
             placeholder="parent@gmail.com"
             value={values.email}
@@ -190,6 +217,7 @@ export function EnquiryForm() {
           />
 
           <SelectField
+            name="heardFrom"
             label="How did you hear about us?"
             value={values.heardFrom}
             onChange={setField("heardFrom")}
@@ -197,6 +225,7 @@ export function EnquiryForm() {
           />
 
           <TextAreaField
+            name="message"
             label="What support does your child need?"
             placeholder="Subjects, curriculum, exam board, goals, and any deadlines."
             value={values.message}
@@ -223,6 +252,7 @@ export function EnquiryForm() {
 }
 
 function Field({
+  name,
   label,
   placeholder,
   value,
@@ -234,6 +264,7 @@ function Field({
     <label className="block">
       <span className="mb-2 block text-sm font-medium text-navy-900">{label}</span>
       <input
+        name={name}
         type="text"
         placeholder={placeholder}
         value={value}
@@ -246,11 +277,12 @@ function Field({
   );
 }
 
-function SelectField({ label, value, onChange, options }) {
+function SelectField({ name, label, value, onChange, options }) {
   return (
     <label className="block">
       <span className="mb-2 block text-sm font-medium text-navy-900">{label}</span>
       <select
+        name={name}
         className="h-12 w-full rounded border border-gray-300 bg-white px-4 text-slate-700 focus:border-navy-600 focus:outline-none"
         value={value}
         onChange={onChange}
@@ -266,11 +298,12 @@ function SelectField({ label, value, onChange, options }) {
   );
 }
 
-function TextAreaField({ label, placeholder, value, onChange }) {
+function TextAreaField({ name, label, placeholder, value, onChange }) {
   return (
     <label className="block">
       <span className="mb-2 block text-sm font-medium text-navy-900">{label}</span>
       <textarea
+        name={name}
         rows={4}
         placeholder={placeholder}
         value={value}

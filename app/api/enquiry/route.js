@@ -1,5 +1,6 @@
 export const runtime = "nodejs";
 
+import { google } from "googleapis";
 import nodemailer from "nodemailer";
 
 function isEmail(value) {
@@ -9,6 +10,19 @@ function isEmail(value) {
 function clean(value, max = 200) {
   if (typeof value !== "string") return "";
   return value.trim().slice(0, max);
+}
+
+function getGoogleSheetsConfig() {
+  const clientEmail = process.env.GOOGLE_CLIENT_EMAIL?.trim();
+  const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n").trim();
+  const sheetId = process.env.GOOGLE_SHEET_ID?.trim();
+  const sheetName = process.env.GOOGLE_SHEET_NAME?.trim() || "Sheet1";
+
+  if (!clientEmail || !privateKey || !sheetId) {
+    return null;
+  }
+
+  return { clientEmail, privateKey, sheetId, sheetName };
 }
 
 function getTransportConfig() {
@@ -37,7 +51,7 @@ function buildEmailHtml(payload, timeOnPageMs) {
     ["Parent Last Name", payload.parentLastName],
     ["Phone Number", payload.phone],
     ["Email", payload.email],
-    ["How they heard about us", payload.heardFrom],
+    ["How they heard about us", payload.source],
     ["Submitted At", payload.submittedAt],
     ["Time on page before submit", `${Math.max(0, Math.round((timeOnPageMs || 0) / 1000))} seconds`],
   ];
@@ -56,7 +70,7 @@ function buildEmailHtml(payload, timeOnPageMs) {
         ${tableRows}
       </table>
       <h3 style="margin:0 0 8px;">Support needed</h3>
-      <div style="padding:12px;border:1px solid #e5e7eb;background:#f8fafc;white-space:pre-wrap;">${payload.message || "-"}</div>
+      <div style="padding:12px;border:1px solid #e5e7eb;background:#f8fafc;white-space:pre-wrap;">${payload.supportNeeded || "-"}</div>
     </div>
   `;
 }
@@ -73,12 +87,12 @@ function buildEmailText(payload, timeOnPageMs) {
     `Parent Last Name: ${payload.parentLastName || "-"}`,
     `Phone Number: ${payload.phone || "-"}`,
     `Email: ${payload.email || "-"}`,
-    `How they heard about us: ${payload.heardFrom || "-"}`,
+    `How they heard about us: ${payload.source || "-"}`,
     `Submitted At: ${payload.submittedAt}`,
     `Time on page before submit: ${Math.max(0, Math.round((timeOnPageMs || 0) / 1000))} seconds`,
     "",
     "Support needed:",
-    payload.message || "-",
+    payload.supportNeeded || "-",
   ].join("\n");
 }
 
@@ -104,7 +118,7 @@ function buildThankYouEmailHtml(payload) {
         <div><strong>School Name:</strong> ${payload.schoolName || "-"}</div>
         <div><strong>Phone Number:</strong> ${payload.phone || "-"}</div>
         <div><strong>Email:</strong> ${payload.email || "-"}</div>
-        <div><strong>Support needed:</strong> ${payload.message || "-"}</div>
+        <div><strong>Support needed:</strong> ${payload.supportNeeded || "-"}</div>
       </div>
       <p style="margin:0;">
         Best regards,<br />
@@ -132,11 +146,57 @@ function buildThankYouEmailText(payload) {
     `School Name: ${payload.schoolName || "-"}`,
     `Phone Number: ${payload.phone || "-"}`,
     `Email: ${payload.email || "-"}`,
-    `Support needed: ${payload.message || "-"}`,
+    `Support needed: ${payload.supportNeeded || "-"}`,
     "",
     "Best regards,",
     "Improve ME Institute",
   ].join("\n");
+}
+
+async function appendEnquiryRow(payload) {
+  const config = getGoogleSheetsConfig();
+
+  if (!config) {
+    console.error("[enquiry] missing Google Sheets configuration");
+    throw new Error("GOOGLE_SHEETS_NOT_CONFIGURED");
+  }
+
+  const auth = new google.auth.JWT({
+    email: config.clientEmail,
+    key: config.privateKey,
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+  });
+
+  await auth.authorize();
+
+  const sheets = google.sheets({ version: "v4", auth });
+
+  try {
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: config.sheetId,
+      range: `${config.sheetName}!A:K`,
+      valueInputOption: "USER_ENTERED",
+      requestBody: {
+        values: [[
+          payload.studentFirstName,
+          payload.studentLastName,
+          payload.yearGroup,
+          payload.schoolName,
+          payload.parentFirstName,
+          payload.parentLastName,
+          payload.phone,
+          payload.email,
+          payload.source,
+          payload.supportNeeded,
+          payload.submittedAt,
+        ]],
+      },
+    });
+  } catch (error) {
+    const details = error?.response?.data || error?.errors || error?.message || error;
+    console.error("[enquiry] Google Sheets append failed", details);
+    throw new Error("GOOGLE_SHEETS_APPEND_FAILED");
+  }
 }
 
 export async function POST(request) {
@@ -152,6 +212,7 @@ export async function POST(request) {
     } catch {
       return Response.json({ ok: false, error: "INVALID_JSON" }, { status: 400 });
     }
+
     const honeypot = clean(body?.website, 120);
     if (honeypot) {
       return Response.json({ ok: true }, { status: 200 });
@@ -166,9 +227,9 @@ export async function POST(request) {
       parentLastName: clean(body?.parentLastName, 80),
       phone: clean(body?.phone, 40),
       email: clean(body?.email, 120),
-      heardFrom: clean(body?.heardFrom, 80),
-      message: clean(body?.message, 800),
-      submittedAt: new Date().toISOString(),
+      source: clean(body?.source, 80),
+      supportNeeded: clean(body?.supportNeeded, 800),
+      submittedAt: new Date().toLocaleString(),
     };
     const timeOnPageMs = Number(body?.timeOnPageMs || 0);
 
@@ -182,13 +243,15 @@ export async function POST(request) {
 
     const transportConfig = getTransportConfig();
     if (!transportConfig) {
-      console.error("[enquiry] missing smtp configuration");
+      console.error("[enquiry] missing Outlook SMTP configuration");
       return Response.json({ ok: false, error: "EMAIL_NOT_CONFIGURED" }, { status: 500 });
     }
 
     const transporter = nodemailer.createTransport(transportConfig);
-    const inboxAddress = process.env.ENQUIRY_TO_EMAIL || "sakshi.ladha@coozmoo.com";
+    const inboxAddress = process.env.ENQUIRY_TO_EMAIL || process.env.OUTLOOK_SMTP_USER;
     const fromAddress = process.env.ENQUIRY_FROM_EMAIL || process.env.OUTLOOK_SMTP_USER;
+
+    await appendEnquiryRow(payload);
 
     await transporter.sendMail({
       from: fromAddress,
@@ -210,7 +273,8 @@ export async function POST(request) {
 
     return Response.json({ ok: true }, { status: 200 });
   } catch (error) {
+    const errorCode = error instanceof Error ? error.message : "SERVER_ERROR";
     console.error("[enquiry] error", error);
-    return Response.json({ ok: false, error: "SERVER_ERROR" }, { status: 500 });
+    return Response.json({ ok: false, error: errorCode || "SERVER_ERROR" }, { status: 500 });
   }
 }
